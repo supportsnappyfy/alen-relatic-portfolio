@@ -1,0 +1,61 @@
+/* KLARWERK / editorial project evidence — 2026 */
+.kw-page{background:#f5f8f3;color:#193b39}
+.kw-page .topbar{background:#0b2429;border-color:#204440}
+.kw-page .signature{color:#fafdf4}.kw-page .signature small{color:#d1e9d9}
+.kw-page .label{color:#42846f}
+.kw-hero{background:#102f31;color:#f8faf5;position:relative;overflow:hidden;padding:90px 0 78px}
+.kw-hero:before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 72% 20%,#3b756050,transparent 48%);pointer-events:none}
+.kw-hero-grid{position:relative;display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);gap:6%;align-items:center}
+.kw-overline{display:block;font-size:10px;letter-spacing:.19em;font-weight:800;color:#b9d4b4}
+.kw-hero h1{font-size:clamp(58px,7.2vw,104px);line-height:.99;letter-spacing:-.087em;margin:28px 0 26px;color:#fff}
+.kw-hero h1 em{color:#c6e7b9;font-family:Georgia,serif;font-weight:400}
+.kw-hero .introtext{color:#c2d8d0;font-size:16px;line-height:1.85;max-width:590px}
+.kw-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:29px}
+.kw-action{border:1px solid #88a9a0;color:#eefcf3;border-radius:100px;padding:14px 19px;font-size:12px;font-weight:800;display:inline-flex;gap:18px;align-items:center;transition:.2s}
+.kw-action.primary{background:#d0f0ba;color:#173d31;border-color:#d0f0ba}
+.kw-action:hover{transform:translateY(-2px)}
+.kw-hero-art{margin:0;position:relative;min-width:0}
+.kw-hero-art img{width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;border-radius:16px;display:block;box-shadow:0 28px 70px #07191c85;border:1px solid #aecbab60}
+.kw-artcaption{font-size:10px;color:#b4cdc0;letter-spacing:.04em;margin-top:12px;line-height:1.55}
+.kw-facts{position:relative;display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:1px solid #54756b88;margin-top:70px}
+.kw-facts>div{padding:22px 24px 0 0}.kw-facts strong{display:block;font-size:21px;letter-spacing:-.045em}.kw-facts span{font-size:11px;color:#b6ccbd;display:block;line-height:1.6;margin-top:7px}
+.kw-section{padding:92px 0}.kw-section.alt{background:#eaf2ea}
+.kw-head{display:grid;grid-template-columns:1fr minmax(300px,.74fr);gap:55px;align-items:end;margin-bottom:32px}
+.kw-head h2{margin:11px 0 0;font-size:clamp(38px,5.5vw,66px);line-height:1.08;letter-spacing:-.065em}
+.kw-head h2 em{font-family:Georgia,serif;font-weight:400;color:#43876e}
+.kw-head p{font-size:14px;color:#5f7972;line-height:1.8;margin:0 0 7px}
+.kw-process{display:grid;grid-template-columns:repeat(5,1fr);gap:11px}
+.kw-stage{padding:24px 19px;min-height:250px;border:1px solid #d5e2d7;border-radius:14px;background:#fff;display:flex;flex-direction:column}
+.kw-stage small{font-size:10px;font-weight:850;letter-spacing:.13em;color:#4e967b}.kw-stage h3{font-size:20px;margin:20px 0 12px;color:#1d4840;letter-spacing:-.047em}.kw-stage p{font-size:12px;color:#69817b;line-height:1.67;margin:0;flex:1}
+.kw-stage footer{padding-top:14px;border-top:1px solid #e6eee7;font-size:10px;color:#488874;font-weight:800;margin-top:21px}
+.kw-proof-note{margin:19px 0 0;color:#667f72;font-size:11px;line-height:1.75}
+.kw-products{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.kw-product{background:white;border:1px solid #d6e3d9;border-radius:18px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 24px 48px #234d3210}
+.kw-product-top{position:relative;min-height:285px;background:#f0efe4;overflow:hidden}
+.kw-product-top.advent img{width:100%;height:100%;min-height:285px;object-fit:cover;object-position:33% center}
+.kw-product-top.wald{background:linear-gradient(135deg,#d4e2d2,#e9f3e9);display:grid;place-items:center}
+.kw-product-top.wald img{max-height:270px;max-width:83%;width:auto;height:90%;object-fit:contain;filter:drop-shadow(0 14px 18px #1848373b)}
+.kw-product-sticker{position:absolute;left:20px;top:20px;background:#173f35;color:#e9f6e4;padding:9px 13px;border-radius:100px;font-size:9px;letter-spacing:.09em;font-weight:800}
+.kw-product-body{padding:25px 30px 29px;display:flex;flex-direction:column;flex:1}.kw-product-body>small{font-size:10px;letter-spacing:.13em;color:#498976;font-weight:850}.kw-product-body h3{font-size:29px;letter-spacing:-.05em;margin:14px 0 12px;color:#21473c}.kw-product-body p{font-size:13px;color:#657d75;line-height:1.74;flex:1;max-width:490px}.kw-product-meta{display:flex;gap:14px;flex-wrap:wrap;font-size:10px;color:#63817b;margin:16px 0 21px}.kw-product-meta span{padding:8px 10px;background:#f0f5ef;border:1px solid #d9e4db;border-radius:5px}
+.kw-inline-link{display:inline-flex;align-items:center;gap:18px;font-size:13px;font-weight:800;color:#226c53;border-bottom:1px solid #226c53;width:max-content;padding-bottom:5px}
+.kw-gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:13px;margin-top:22px}
+.kw-gallery figure{background:#fff;border:1px solid #dbe6db;border-radius:12px;overflow:hidden;margin:0}
+.kw-gallery img{width:100%;height:210px;object-fit:contain;background:#f1f5ef;display:block;padding:12px;transition:transform .25s}
+.kw-gallery a:hover img{transform:scale(1.03)}.kw-gallery figcaption{font-size:11px;color:#688176;padding:12px 14px;border-top:1px solid #e4ece5}
+.kw-engine{display:grid;grid-template-columns:1fr .88fr;gap:44px;align-items:start}
+.kw-engine h2{margin-top:12px}.kw-engine p{font-size:14px;color:#627d72;line-height:1.86}
+.kw-lanes{display:grid;gap:12px}.kw-lane{background:#fff;border:1px solid #d1e0d7;border-radius:14px;padding:22px 25px}.kw-lane small{font-size:10px;color:#4d9b7e;font-weight:800;letter-spacing:.13em}.kw-lane h3{font-size:20px;margin:9px 0;color:#235047}.kw-lane p{font-size:12px;line-height:1.68;margin:0}.kw-lane.planned{background:#eff6ef;border-style:dashed}
+.kw-tools{display:flex;gap:7px;flex-wrap:wrap;margin-top:23px}.kw-tools span{font-size:10px;color:#487467;padding:8px 12px;background:#fff;border:1px solid #d8e3d9;border-radius:6px}
+.kw-kdp{background:#123532;color:#f0f8f0;padding:87px 0}
+.kw-kdp-grid{display:grid;grid-template-columns:.82fr 1.18fr;gap:70px;align-items:start}
+.kw-kdp .label{color:#bcdfaa}.kw-kdp h2{color:white;margin-top:16px}.kw-kdp h2 em{color:#c2e6b7}.kw-kdp p{font-size:14px;color:#c4d8cd;line-height:1.85}
+.kw-kdp-track{display:grid;gap:10px}.kw-kdp-track article{display:grid;grid-template-columns:40px 1fr;gap:15px;background:#ffffff0b;border:1px solid #ffffff29;padding:18px 20px;border-radius:11px}.kw-kdp-track b{font-size:18px;color:#c9e4bb}.kw-kdp-track strong{display:block;font-size:14px;color:#fff}.kw-kdp-track small{display:block;font-size:11px;margin-top:6px;line-height:1.6;color:#c0d8c9}
+.kw-status{font-size:11px!important;font-style:italic;color:#cce7bc!important;margin-top:20px}
+.kw-closing{padding:90px 0}.kw-closing-grid{display:grid;grid-template-columns:1fr 1fr;gap:65px;align-items:center}
+.kw-closing h2{margin-bottom:22px}.kw-closing p{font-size:14px;color:#667d73;line-height:1.85}
+.kw-quote{border-left:3px solid #69aa83;padding:20px 28px;background:#eaf3e9;color:#2e5e4f;font-family:Georgia,serif;font-size:24px;line-height:1.5;letter-spacing:-.025em}
+.kw-bottom-links{display:flex;flex-wrap:wrap;gap:14px;margin-top:24px}.kw-bottom-links a{font-size:12px;color:#245d4a;font-weight:800;text-decoration:underline;text-underline-offset:4px}
+.kw-page footer.site-footer{background:#0b2429;color:#c8dbd1;padding:25px 0}.kw-page footer.site-footer .shell{display:flex;gap:18px;justify-content:space-between;flex-wrap:wrap;font-size:11px}
+@media(max-width:990px){.kw-hero-grid,.kw-head,.kw-engine,.kw-kdp-grid,.kw-closing-grid{grid-template-columns:1fr;gap:27px}.kw-process{grid-template-columns:repeat(3,1fr)}.kw-hero-art{max-width:800px}.kw-kdp-grid{gap:35px}.kw-head p{max-width:680px}}
+@media(max-width:690px){.kw-hero{padding:68px 0 54px}.kw-hero h1{font-size:clamp(49px,13vw,72px)}.kw-section,.kw-closing{padding:64px 0}.kw-products,.kw-gallery,.kw-facts{grid-template-columns:1fr}.kw-process{grid-template-columns:1fr 1fr}.kw-stage{min-height:190px}.kw-product-top{min-height:220px}.kw-product-top.advent img{min-height:220px}.kw-gallery img{height:180px}.kw-facts{gap:10px;margin-top:38px}.kw-facts>div{padding:10px 0;border-top:1px solid #ffffff40}.kw-kdp{padding:60px 0}.kw-quote{font-size:20px}}
+@media(max-width:400px){.kw-process{grid-template-columns:1fr}.kw-hero h1{font-size:45px}}
