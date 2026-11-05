@@ -6,6 +6,9 @@ A lightweight, responsive, English-language portfolio for hiring teams, with det
 
 - Portfolio: https://supportsnappyfy.github.io/alen-relatic-portfolio/
 - Snappyfy archived system case study: https://supportsnappyfy.github.io/alen-relatic-portfolio/snappyfy-system.html
+- Snappyfy read-only webshop demonstration (separate Snappyfy deployment): https://business-clarity-suite.lovable.app/store
+- Klarwerk system walk-through: https://supportsnappyfy.github.io/alen-relatic-portfolio/klarwerk-system.html
+- Klarwerk live store: https://payhip.com/klarwerkdigitalstudio
 - LinkedIn: https://www.linkedin.com/in/alen-relatic/
 
 The URLs above refer to the **main** branch's live GitHub Pages build. This V4 branch is a proposal and does not affect the live site unless merged.
