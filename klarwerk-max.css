@@ -59,3 +59,9 @@
 @media(max-width:990px){.kw-hero-grid,.kw-head,.kw-engine,.kw-kdp-grid,.kw-closing-grid{grid-template-columns:1fr;gap:27px}.kw-process{grid-template-columns:repeat(3,1fr)}.kw-hero-art{max-width:800px}.kw-kdp-grid{gap:35px}.kw-head p{max-width:680px}}
 @media(max-width:690px){.kw-hero{padding:68px 0 54px}.kw-hero h1{font-size:clamp(49px,13vw,72px)}.kw-section,.kw-closing{padding:64px 0}.kw-products,.kw-gallery,.kw-facts{grid-template-columns:1fr}.kw-process{grid-template-columns:1fr 1fr}.kw-stage{min-height:190px}.kw-product-top{min-height:220px}.kw-product-top.advent img{min-height:220px}.kw-gallery img{height:180px}.kw-facts{gap:10px;margin-top:38px}.kw-facts>div{padding:10px 0;border-top:1px solid #ffffff40}.kw-kdp{padding:60px 0}.kw-quote{font-size:20px}}
 @media(max-width:400px){.kw-process{grid-template-columns:1fr}.kw-hero h1{font-size:45px}}
+
+.kw-product-top.wald{height:285px;display:block;overflow:hidden;background:#dceadf}
+.kw-product-top.wald img.kw-wald-promo{position:absolute;left:8%;top:0;width:57%;height:115%;max-width:none;max-height:none;object-fit:cover;border-radius:5px;filter:drop-shadow(0 10px 18px #183c2740)}
+.kw-product-top.wald img.kw-wald-sheet{position:absolute;right:5%;bottom:-27%;width:43%;height:96%;max-width:none;max-height:none;object-fit:cover;object-position:top;border:7px solid white;border-radius:6px;transform:rotate(7deg);filter:drop-shadow(0 14px 18px #183c2744)}
+.kw-product-top.wald .kw-product-sticker{z-index:1}
+@media(max-width:690px){.kw-product-top.wald{height:240px}.kw-product-top.wald img.kw-wald-sheet{border-width:5px}}
