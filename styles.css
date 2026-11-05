@@ -21,3 +21,7 @@
 .portrait-panel figcaption strong{font-size:17px;color:#193e42;letter-spacing:-.035em}
 .portrait-panel figcaption span{font-size:11px;color:#698480;line-height:1.5}
 @media(max-width:640px){.project-link-row{align-items:flex-start;flex-direction:column;gap:18px}.project-feature-link{width:100%;justify-content:space-between}.portrait-panel img{width:100px;height:100px}}
+
+/* Klarwerk product evidence */
+#klarwerk .case-detail a{color:#176452;text-decoration:underline;text-underline-offset:3px}
+#klarwerk .project-link-row{gap:16px 21px}
