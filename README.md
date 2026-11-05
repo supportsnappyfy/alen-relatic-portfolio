@@ -1,4 +1,4 @@
-# Alen Relatić — Professional Portfolio V1
+# Alen Relatić — Professional Portfolio V4 (review draft)
 
 A lightweight, responsive, English-language portfolio for hiring teams.
 
@@ -14,6 +14,8 @@ A lightweight, responsive, English-language portfolio for hiring teams.
 - `styles.css` — design and responsive layout
 - `script.js` — mobile menu, expandable case studies, current year
 - `assets/favicon.svg` — favicon
+- `snappyfy-system.html` + `system.css` — detailed historical case study
+- `assets/command-center.png`, `product-discovery.png`, `marketing-hub.png`, `shopify-analytics.png` — four historical application screenshots
 - `.nojekyll` — avoid Jekyll processing on GitHub Pages
 
 ## Publish to GitHub Pages (manual fallback)
@@ -46,3 +48,10 @@ Content drafted from user-provided context, Google Drive career and case-study d
 **Security:** The private source repository contains a tracked `.env` file. Its content was not accessed or copied. Before ever making that source repository public, inspect it for secrets and rotate any exposed credentials as appropriate. The portfolio here is an independent, dependency-free, publishable package and includes no source credentials.
 
 **Publishing limitation:** The connected GitHub tool can inspect and modify existing repositories but does not currently offer a create-repository action. A **separate public repo** has to be created by the account owner before uploading the files. Do NOT place portfolio files inside the existing private Snappyfy source repo; do not make the Snappyfy repo public.
+## Evidence and next asset pass (November 2026)
+
+- Resend is documented in the archived application for promotional/seasonal campaign sends, webhooks, transactional email paths, and the Email Campaign Center. Its integration is not asserted to be active today.
+- The archived internal case-study document reports 38 Shopify orders and €989.62 revenue in April–June 2026. These are **historical, internally recorded, not independently audited**, and do not imply profitability.
+- Gemini 2.5 Flash is referenced in the AI command chat and seasonal email source. Minimax, Kling, Runway, and Luma appear in a creative-router configuration; do not assert actual model execution without logs.
+- Four original historical screenshots are published. Future genuine screenshots should cover Email Campaign Center, PM Hub, Profit Truth/Executive, and customer support. Capture these from the historical application only and redact customer details, account identifiers, tokens, dashboard URLs and other sensitive values.
+- Never recreate an imaginary backoffice screenshot and present it as production evidence. Illustrative diagrams must be labeled.
