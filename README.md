@@ -1,4 +1,4 @@
-# Alen Relatić — Professional Portfolio (V4 review draft)
+# Alen Relatić — Professional Portfolio / MAX Edition
 
 A lightweight, responsive, English-language portfolio for hiring teams, with detailed case studies in Digital Operations, QA, AI-assisted workflows and e-commerce systems.
 
@@ -11,14 +11,14 @@ A lightweight, responsive, English-language portfolio for hiring teams, with det
 - Klarwerk live store: https://payhip.com/klarwerkdigitalstudio
 - LinkedIn: https://www.linkedin.com/in/alen-relatic/
 
-The URLs above refer to the **main** branch's live GitHub Pages build. This V4 branch is a proposal and does not affect the live site unless merged.
+The published pages are deployed from the repository's main branch through GitHub Pages. They are static case studies, not interactive backoffice access.
 
 ## Stack and structure
 
 - HTML, CSS, vanilla JavaScript; no client analytics or tracking packages.
 - `index.html`, `styles.css`, `script.js`: portfolio homepage.
 - `snappyfy-system.html`, `system.css`: Snappyfy system walkthrough.
-- `assets/command-center.png`, `product-discovery.png`, `marketing-hub.png`, `shopify-analytics.png`: four original historical UI screenshots.
+- `assets/command-center.png`, `product-discovery.png`, `marketing-hub.png`, `shopify-analytics.png`, `shopify-products.png`: five historical Snappyfy evidence screenshots.
 - `assets/alen-portrait.png`, `favicon.svg`: visual assets.
 
 ## Evidence standard
@@ -29,7 +29,7 @@ The URLs above refer to the **main** branch's live GitHub Pages build. This V4 b
 - Gemini 2.5 Flash appears in source for AI chat and seasonal email copy. Minimax Video-01, Kling 1.5, Runway Gen-3 Alpha Turbo and Luma Ray 2 Flash appear in a creative model router's configuration. **Model configuration is not evidence of actual production execution.**
 - The author led requirements, architecture, prompt specifications, low-code implementation coordination, testing, debugging and operations; he does not claim to have hand-coded every function.
 
-## Real screenshots still needed
+## Additional authentic Snappyfy screenshots worth capturing later
 
 Capture and manually redact **genuine historical** UI screenshots for:
 1. Email Campaign Center: tabs, automation and send logs.
@@ -38,6 +38,16 @@ Capture and manually redact **genuine historical** UI screenshots for:
 4. AI Support: ticket handling and escalation.
 
 Strip customer emails, names, order IDs, account/pixel IDs, addresses, credentials, internal links, tokens and confidential business identifiers. Do not add screenshots of Secrets, Users or private account pages. Do **not** present generated mockups as authentic backoffice screenshots.
+
+## Klarwerk evidence and future format
+
+- `klarwerk-system.html` + `klarwerk-max.css`: premium case study of product development, real releases, organic discovery and *research-stage* KDP path.
+- `assets/klarwerk-advent-hero.png`: original full-resolution Canva artwork from connected Drive.
+- `assets/klarwerk-waldentdecker-preview-1.png` through `-3.png`: genuine existing product PDF previews.
+- `assets/klarwerk-advent-pin.png` and `klarwerk-waldentdecker-pin.png`: original campaign artwork.
+- Payhip product links: Advent `https://payhip.com/b/Jh9tF`, Waldentdecker `https://payhip.com/b/6cE0K`; source project documents dated 2 Nov 2026. Availability must be checked live when feasible.
+- Amazon KDP is a future print-specific feasibility and production track, **not** a live published book.
+- `linkedin-content/portfolio-derived-posts.md`: three concise, evidence-led LinkedIn post/carousel scripts derived from portfolio. Not posted automatically.
 
 ## Maintenance
 
