@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://supportsnappyfy.github.io/alen-relatic-portfolio/sitemap.xml
