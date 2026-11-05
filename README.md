@@ -1,57 +1,43 @@
-# Alen Relatić — Professional Portfolio V4 (review draft)
+# Alen Relatić — Professional Portfolio (V4 review draft)
 
-A lightweight, responsive, English-language portfolio for hiring teams.
+A lightweight, responsive, English-language portfolio for hiring teams, with detailed case studies in Digital Operations, QA, AI-assisted workflows and e-commerce systems.
 
-## Stack
+## Public pages
 
-- Plain HTML + CSS + vanilla JavaScript
-- No React build, database, API keys, tracking scripts, paid services, or package dependencies
-- Suitable for GitHub Pages, Cloudflare Pages, Netlify, or any static file server
+- Portfolio: https://supportsnappyfy.github.io/alen-relatic-portfolio/
+- Snappyfy archived system case study: https://supportsnappyfy.github.io/alen-relatic-portfolio/snappyfy-system.html
+- LinkedIn: https://www.linkedin.com/in/alen-relatic/
 
-## Files
+The URLs above refer to the **main** branch's live GitHub Pages build. This V4 branch is a proposal and does not affect the live site unless merged.
 
-- `index.html` — content and section structure
-- `styles.css` — design and responsive layout
-- `script.js` — mobile menu, expandable case studies, current year
-- `assets/favicon.svg` — favicon
-- `snappyfy-system.html` + `system.css` — detailed historical case study
-- `assets/command-center.png`, `product-discovery.png`, `marketing-hub.png`, `shopify-analytics.png` — four historical application screenshots
-- `.nojekyll` — avoid Jekyll processing on GitHub Pages
+## Stack and structure
 
-## Publish to GitHub Pages (manual fallback)
+- HTML, CSS, vanilla JavaScript; no client analytics or tracking packages.
+- `index.html`, `styles.css`, `script.js`: portfolio homepage.
+- `snappyfy-system.html`, `system.css`: Snappyfy system walkthrough.
+- `assets/command-center.png`, `product-discovery.png`, `marketing-hub.png`, `shopify-analytics.png`: four original historical UI screenshots.
+- `assets/alen-portrait.png`, `favicon.svg`: visual assets.
 
-1. Sign in to your **existing** GitHub account.
-2. Create a new **public** repository, e.g. `alen-portfolio`. **Do not** reuse the Snappyfy production repository.
-3. Upload the contents of this folder to the repository root (not the enclosing folder).
-4. Go to **Settings → Pages → Build and deployment → Deploy from a branch**.
-5. Select branch `main` and folder `/(root)`, then save.
-6. GitHub shows the public URL once the first deployment finishes. Do not assume the URL until GitHub reports it.
-7. Open the URL on your phone, test all case-study expand buttons, check LinkedIn and email links, and add the final URL to LinkedIn's Featured section.
+## Evidence standard
 
-## Pre-publication checks
+- The Snappyfy e-commerce experiment **closed in 2026**. Its old admin integrations must not be presented as live or commercially successful.
+- Historical internal case-study records state **38 Shopify orders and €989.62 in revenue in Apr–Jun 2026**. These are internally reported, not independently audited and not a statement of profit or present business performance.
+- The preserved private source includes Resend email flows, event/webhook handling and a dedicated Email Campaign Center with campaign calendar, logs, analytics, automation and retention views.
+- Gemini 2.5 Flash appears in source for AI chat and seasonal email copy. Minimax Video-01, Kling 1.5, Runway Gen-3 Alpha Turbo and Luma Ray 2 Flash appear in a creative model router's configuration. **Model configuration is not evidence of actual production execution.**
+- The author led requirements, architecture, prompt specifications, low-code implementation coordination, testing, debugging and operations; he does not claim to have hand-coded every function.
 
-- Confirm name and spelling, public-facing email address, and exact target roles.
-- Read the three case studies and confirm every claim. No unverified KPIs or proprietary implementation details are included.
-- Confirm that content about prior employers respects confidentiality obligations.
-- Confirm source code does not contain secrets before pushing to a public repo (this package has no known secrets).
-- Keep future evidence screenshots free of customers' personally identifying data, sensitive business figures and API tokens.
-- Portfolio graphics are **illustrative diagrams**, not screenshots of deployed production systems.
+## Real screenshots still needed
 
-## Update workflow
+Capture and manually redact **genuine historical** UI screenshots for:
+1. Email Campaign Center: tabs, automation and send logs.
+2. PM Hub: sprint, tasks and owners.
+3. Executive / Profit Truth: finance reconciliation without account data.
+4. AI Support: ticket handling and escalation.
 
-Edit `index.html` text, commit the changes and GitHub Pages redeploys automatically. For an optional photo, add an authorized photo to `assets/` and update the HTML/CSS. Later, a custom domain can be attached through GitHub Pages settings and DNS.
+Strip customer emails, names, order IDs, account/pixel IDs, addresses, credentials, internal links, tokens and confidential business identifiers. Do not add screenshots of Secrets, Users or private account pages. Do **not** present generated mockups as authentic backoffice screenshots.
 
-## Source grounding
+## Maintenance
 
-Content drafted from user-provided context, Google Drive career and case-study documents, plus a **read-only code review on 05 Nov 2026** of the linked private `supportsnappyfy/business-clarity-suite` GitHub repo and Lovable `Snappyfy 2.0` project. Reviewed key source files including `src/App.tsx`, `src/pages/BackofficeDashboard.tsx`, `src/pages/AICommandCenter.tsx`, `src/pages/ArchitectureMap.tsx`, and `src/pages/CaseStudy.tsx`; inspected the Supabase function directory list. This is **not** a code security audit or confirmation of production integrations. Historical internal performance estimates are not presented as proven outcomes.
+Edit relevant HTML/CSS, review on desktop and mobile, and merge reviewed changes to `main` to update GitHub Pages. Keep the private Snappyfy source repository private and credentials out of this portfolio. Confirm each metrics claim against primary historical records before publishing new numeric results.
 
-**Security:** The private source repository contains a tracked `.env` file. Its content was not accessed or copied. Before ever making that source repository public, inspect it for secrets and rotate any exposed credentials as appropriate. The portfolio here is an independent, dependency-free, publishable package and includes no source credentials.
-
-**Publishing limitation:** The connected GitHub tool can inspect and modify existing repositories but does not currently offer a create-repository action. A **separate public repo** has to be created by the account owner before uploading the files. Do NOT place portfolio files inside the existing private Snappyfy source repo; do not make the Snappyfy repo public.
-## Evidence and next asset pass (November 2026)
-
-- Resend is documented in the archived application for promotional/seasonal campaign sends, webhooks, transactional email paths, and the Email Campaign Center. Its integration is not asserted to be active today.
-- The archived internal case-study document reports 38 Shopify orders and €989.62 revenue in April–June 2026. These are **historical, internally recorded, not independently audited**, and do not imply profitability.
-- Gemini 2.5 Flash is referenced in the AI command chat and seasonal email source. Minimax, Kling, Runway, and Luma appear in a creative-router configuration; do not assert actual model execution without logs.
-- Four original historical screenshots are published. Future genuine screenshots should cover Email Campaign Center, PM Hub, Profit Truth/Executive, and customer support. Capture these from the historical application only and redact customer details, account identifiers, tokens, dashboard URLs and other sensitive values.
-- Never recreate an imaginary backoffice screenshot and present it as production evidence. Illustrative diagrams must be labeled.
+Source basis for the V4 draft: read-only review on November 5, 2026 of the historical private project repository's `docs/portfolio/architecture.md`, `docs/portfolio/case-study.md`, `src/pages/EmailCampaignCenter.tsx`, `supabase/functions/resend-webhook/index.ts`, `send-seasonal-email-campaign/index.ts`, `ai-command-chat/index.ts`, and `creative-model-router/index.ts`.
