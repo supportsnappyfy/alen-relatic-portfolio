@@ -56,3 +56,45 @@
 /* Accessible focus and safe wrapping on case-study links */
 .project-feature-link:focus-visible,.text-link:focus-visible,.btn:focus-visible,.expand-button:focus-visible{outline:3px solid #79caa0;outline-offset:4px}
 .project-content p,.career-body p,.career-earlier{overflow-wrap:break-word}
+
+
+/* Portfolio 2.0 – staged CV foundation; keeps original visual language */
+.hero-profile{display:flex;gap:20px;align-items:center;max-width:580px}
+.hero-profile-photo{width:96px;height:96px;object-fit:cover;object-position:center top;border-radius:22px;border:1px solid rgba(213,240,228,.32);background:#d7e5de;box-shadow:0 12px 35px rgba(0,0,0,.22);flex:none}
+.hero-profile-copy{display:flex;flex-direction:column;align-items:flex-start;min-width:0;gap:5px}
+.hero-profile-name{font-size:19px;letter-spacing:-.035em;font-weight:780;color:#f0f8f5}
+.hero-profile-title{font-size:12px;letter-spacing:.015em;color:#b9d5d1;font-weight:650;line-height:1.4}
+.hero-profile .kicker{margin-top:7px;font-size:10px;text-transform:none;letter-spacing:0;color:#a7c2bf}
+.hero-grid{padding-top:60px;padding-bottom:60px}
+.hero h1{margin-top:31px}
+.career-role{align-items:center}
+.career-body .career-toggle{margin-top:14px;display:inline-flex;align-items:center;gap:16px;background:none;border:0;color:#266457;font-size:12px;font-weight:780;padding:8px 0;text-align:left;line-height:1.4}
+.career-toggle span,.earlier-roles summary span{display:inline-block;transition:transform .24s cubic-bezier(.2,.7,.2,1)}
+.career-toggle[aria-expanded="true"] span,.earlier-roles[open] summary span{transform:rotate(180deg)}
+.career-extra[hidden]{display:none}
+.career-extra{overflow:hidden}
+.career-extra p{margin:15px 0 15px;font-size:13px;line-height:1.68}
+.career-body>strong{display:block;line-height:1.5;font-weight:680}
+.earlier-roles{border:1px solid #d8e6dc;background:#fff;border-radius:14px;margin-top:24px}
+.earlier-roles summary{cursor:pointer;list-style:none;padding:19px 24px;display:flex;justify-content:space-between;gap:18px;align-items:center;color:#2b6357;font-size:13px;font-weight:780}
+.earlier-roles summary::-webkit-details-marker{display:none}
+.earlier-roles summary:focus-visible{outline:3px solid #79caa0;outline-offset:3px;border-radius:10px}
+.earlier-roles-body{padding:0 24px 20px;font-size:12px;color:#667e78}
+.earlier-roles-body strong{color:#214d45}
+.earlier-roles-body p{font-size:12px;margin:7px 0 10px;line-height:1.65}
+.education-section{background:#e9f0e9;padding-top:86px;padding-bottom:94px}
+.education-layout{display:grid;grid-template-columns:.82fr 1.18fr;gap:75px;align-items:start}
+.education-section h2{font-size:clamp(38px,4.4vw,60px);line-height:1.1;letter-spacing:-.065em}
+.education-section h2 em{font-family:Georgia,serif;color:#3f7866;font-weight:400}
+.education-records{display:grid;gap:13px}
+.education-record{padding:24px 27px;border-radius:16px;border:1px solid #d2e1d7;background:#fff}
+.education-type{display:block;font-size:10px;font-weight:800;letter-spacing:.13em;color:#467f6a;margin-bottom:13px}
+.education-record h3{font-size:22px;color:#163b3a;line-height:1.18;letter-spacing:-.04em;margin:0 0 6px}
+.education-record p{font-size:13px;line-height:1.55;color:#657a75;margin:0}
+.education-record strong{display:block;margin-top:17px;color:#225c4e;font-size:13px}
+.education-record .education-qualification{font-size:12px;margin-top:7px}
+.education-secondary{background:#f5f8f3}
+.education-secondary h3{font-size:18px}
+@media(max-width:820px){.education-layout{grid-template-columns:1fr;gap:30px}.hero-profile-photo{width:84px;height:84px}.hero-grid{padding-top:48px;padding-bottom:52px}}
+@media(max-width:640px){.hero-profile{gap:13px}.hero-profile-photo{width:74px;height:74px;border-radius:15px}.hero-profile-name{font-size:16px}.hero-profile-title{font-size:10px}.hero-profile .kicker{font-size:9px;margin-top:4px}.hero h1{margin-top:25px}.education-section{padding:62px 0}.education-record{padding:20px 21px}.education-section h2{font-size:40px}.career-body .career-toggle{margin-top:10px}}
+@media(prefers-reduced-motion:reduce){.career-toggle span,.earlier-roles summary span{transition:none!important}}
