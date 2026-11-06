@@ -65,3 +65,11 @@
 .kw-product-top.wald img.kw-wald-sheet{position:absolute;right:5%;bottom:-27%;width:43%;height:96%;max-width:none;max-height:none;object-fit:cover;object-position:top;border:7px solid white;border-radius:6px;transform:rotate(7deg);filter:drop-shadow(0 14px 18px #183c2744)}
 .kw-product-top.wald .kw-product-sticker{z-index:1}
 @media(max-width:690px){.kw-product-top.wald{height:240px}.kw-product-top.wald img.kw-wald-sheet{border-width:5px}}
+
+/* Screenshot-confirmed visual fixes: keep genuine artwork unobstructed. */
+.kw-stage footer{background:transparent!important;color:#31745f!important;padding:14px 0 0!important;border-top:1px solid #dbe8df;line-height:1.45;margin-top:auto;font-size:11px}
+.kw-product-body .kw-product-sticker{position:static;display:inline-flex;align-self:flex-start;margin:0 0 10px;padding:8px 12px;color:#effff1;background:#245949;box-shadow:none}
+.kw-product-top.wald img.kw-wald-promo{left:3%;top:3%;width:56%;height:93%;object-fit:contain;object-position:center;filter:drop-shadow(0 10px 15px #183c2730)}
+.kw-product-top.wald img.kw-wald-sheet{right:4%;bottom:-16%;width:43%;height:90%;object-fit:contain;object-position:top;border-width:5px}
+.kw-product-top.advent img{width:100%;height:100%;object-fit:contain;object-position:center;background:#f4f0e6}
+@media(max-width:690px){.kw-product-top.wald img.kw-wald-promo{top:4%;height:91%;width:56%}.kw-product-top.wald img.kw-wald-sheet{bottom:-13%;height:89%;border-width:4px}.kw-product-body .kw-product-sticker{font-size:10px}}
