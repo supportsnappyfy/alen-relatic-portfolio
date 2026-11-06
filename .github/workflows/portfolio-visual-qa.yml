@@ -27,7 +27,7 @@ jobs:
           const fs=require('fs'); const path=require('path');
           (async()=> {
             const browser=await chromium.launch({headless:true,args:['--no-sandbox']});
-            const pages=['index.html','klarwerk-system.html','snappyfy-system.html'];
+            const pages=['index.html','klarwerk-system.html','snappyfy-system.html','snappyfy-storefront.html','snappyfy-product.html'];
             const widths=[{name:'desktop',width:1440,height:1000},{name:'mobile',width:390,height:844}];
             const report=[]; let failed=false;
             fs.mkdirSync('qa-screenshots',{recursive:true});
@@ -51,6 +51,8 @@ jobs:
                 if(await btn.count()){await btn.click();const expanded=await btn.getAttribute('aria-expanded');if(expanded!=='true')errors.push('Expander button did not open');}
               }
               if(check.overflow>2)errors.push('Horizontal overflow '+check.overflow+'px');
+              const internal=await page.locator('a[href]').evaluateAll(els=>els.map(a=>a.getAttribute('href')).filter(h=>h && !h.startsWith('http') && !h.startsWith('mailto:') && !h.startsWith('#')));
+              for(const href of internal){const pagefile=href.split('#')[0].split('?')[0];if(pagefile && !fs.existsSync(pagefile))errors.push('Missing internal page '+href)}
               for(const im of check.images.filter(x=>!x.ok))errors.push('Image failed '+im.src);
               for(const l of check.links.filter(x=>!x.ok))errors.push('Broken anchor '+l.href);
               if(responses.length)errors.push(...responses);

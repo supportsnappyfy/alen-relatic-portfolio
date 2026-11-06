@@ -6,7 +6,9 @@ A lightweight, responsive, English-language portfolio for hiring teams, with det
 
 - Portfolio: https://supportsnappyfy.github.io/alen-relatic-portfolio/
 - Snappyfy archived system case study: https://supportsnappyfy.github.io/alen-relatic-portfolio/snappyfy-system.html
-- Snappyfy read-only webshop demonstration (separate Snappyfy deployment): https://business-clarity-suite.lovable.app/store
+- Snappyfy public read-only storefront: https://supportsnappyfy.github.io/alen-relatic-portfolio/snappyfy-storefront.html
+- Snappyfy archived product: https://supportsnappyfy.github.io/alen-relatic-portfolio/snappyfy-product.html
+- The original Lovable URL has a custom-domain redirect issue as of 6 Nov 2026; do not present its public URL as verified archived storefront until the primary-domain setting is corrected.
 - Klarwerk system walk-through: https://supportsnappyfy.github.io/alen-relatic-portfolio/klarwerk-system.html
 - Klarwerk live store: https://payhip.com/klarwerkdigitalstudio
 - LinkedIn: https://www.linkedin.com/in/alen-relatic/
