@@ -43,12 +43,29 @@ jobs:
                 const all=[...document.images].map(x=>({src:x.getAttribute('src'),ok:x.complete&&x.naturalWidth>0,natural:[x.naturalWidth,x.naturalHeight]}));
                 const links=[...document.querySelectorAll('a[href^="#"]')].filter(a=>a.getAttribute('href')!=='#').map(a=>({href:a.getAttribute('href'),ok:!!document.getElementById(a.getAttribute('href').slice(1))}));
                 const overflow=Math.max(0,document.documentElement.scrollWidth-innerWidth);
-                const portrait=document.querySelector('.portrait-panel img');
+                const portrait=document.querySelector('.hero-profile-photo, .portrait-panel img');
                 return {overflow,images:all,links,portrait:portrait?.getAttribute('src')||null};
               });
               if(p==='index.html'){
-                let btn=page.locator('button.expand-button').first();
-                if(await btn.count()){await btn.click();const expanded=await btn.getAttribute('aria-expanded');if(expanded!=='true')errors.push('Expander button did not open');}
+                const education=page.locator('#education .education-qualification');
+                if(await education.count()!==1)errors.push('Confirmed education section not found');
+                else if(!(await education.innerText()).includes('pristup. oec.'))errors.push('Education designation missing');
+                const portrait=page.locator('.hero-profile-photo');
+                if(await portrait.count()!==1)errors.push('Hero portrait missing');
+                else if(!(await portrait.evaluate(el=>el.complete&&el.naturalWidth>0)))errors.push('Hero portrait image not loaded');
+                for (const selector of ['button.expand-button','.career-toggle']){
+                  const btn=page.locator(selector).first();
+                  if(await btn.count()){
+                    await btn.click();
+                    if(await btn.getAttribute('aria-expanded')!=='true')errors.push(selector+' failed to open');
+                    await page.waitForTimeout(350);
+                    await btn.click();
+                    if(await btn.getAttribute('aria-expanded')!=='false')errors.push(selector+' failed to close');
+                    await page.waitForTimeout(350);
+                    const panel=page.locator('#'+await btn.getAttribute('aria-controls'));
+                    if(!(await panel.evaluate(el=>el.hidden)))errors.push(selector+' panel did not finish closing');
+                  }else errors.push(selector+' missing');
+                }
               }
               if(check.overflow>2)errors.push('Horizontal overflow '+check.overflow+'px');
               const internal=await page.locator('a[href]').evaluateAll(els=>els.map(a=>a.getAttribute('href')).filter(h=>h && !h.startsWith('http') && !h.startsWith('mailto:') && !h.startsWith('#')));
