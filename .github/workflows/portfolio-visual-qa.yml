@@ -59,6 +59,14 @@ jobs:
                 if(await page.locator('.language-switch a').count()!==3)errors.push('Expected EN/DE/HR language links');
                 if(await page.locator('.language-switch a[aria-current="page"]').count()!==1)errors.push('Exactly one current language expected');
                 if(await page.locator('.project-card').count()!==2)errors.push('Existing project count changed');
+                if(await page.locator('.sys-board-row').count()!==2)errors.push('Two project architecture maps missing');
+                if(await page.locator('.sys-board-row .sys-node').count()!==8)errors.push('Expected 8 connected architecture nodes');
+                if(await page.locator('.sys-tool-strip-list img').count()<7)errors.push('Background brand-logo strip missing');
+                if(await page.locator('link[href="systems-visuals.css"]').count()!==1)errors.push('Architecture CSS missing');
+                if(await page.locator('.chip-row img').count()<6)errors.push('Project icon badges missing');
+                const projectTitles=await page.locator('.sys-board-context h4').allTextContents();
+                if(projectTitles.length!==2||!projectTitles[0].includes('Snappyfy')||!projectTitles[1].includes('Klarwerk'))errors.push('Architecture subject mismatch');
+
                 const exp=page.locator('button.expand-button').first();
                 if(await exp.count()){
                   await exp.click();
@@ -81,12 +89,19 @@ jobs:
                   if(!(await page.locator('body').innerText()).includes('Profesionalno'))errors.push('Croatian body translation missing');
                 }
               }
+              if(['snappyfy-system.html','klarwerk-system.html'].includes(p)){
+                if(await page.locator('.sys-case').count()!==1)errors.push('Case-study architecture visual missing');
+                if(await page.locator('.sys-case-board .sys-node').count()!==4)errors.push('Case-study four-step flow missing');
+                if(await page.locator('.sys-case-tools img').count()<4)errors.push('Case-study branded tools missing');
+              }
               if(check.overflow>2)errors.push('Horizontal overflow '+check.overflow+'px');
               const internal=await page.locator('a[href]').evaluateAll(els=>els.map(a=>a.getAttribute('href')).filter(h=>h && !h.startsWith('http') && !h.startsWith('mailto:') && !h.startsWith('#')));
               for(const href of internal){const pagefile=href.split('#')[0].split('?')[0];if(pagefile && !fs.existsSync(pagefile))errors.push('Missing internal page '+href)}
               for(const im of check.images.filter(x=>!x.ok))errors.push('Image failed '+im.src);
               for(const l of check.links.filter(x=>!x.ok))errors.push('Broken anchor '+l.href);
               if(responses.length)errors.push(...responses);
+              await page.evaluate(()=>window.scrollTo({top:0,behavior:'instant'}));
+              await page.waitForTimeout(180);
               const out='qa-screenshots/'+p.replace(/\.html$/,'')+'-'+w.name+'.jpeg';
               await page.screenshot({path:out,fullPage:true,type:'jpeg',quality:72});
               report.push({page:p,viewport:w.name,overflow:check.overflow,images:check.images.length,portrait:check.portrait,errors,screenshot:out});
