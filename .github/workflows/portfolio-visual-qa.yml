@@ -27,7 +27,7 @@ jobs:
           const fs=require('fs'); const path=require('path');
           (async()=> {
             const browser=await chromium.launch({headless:true,args:['--no-sandbox']});
-            const pages=['index.html','klarwerk-system.html','snappyfy-system.html','snappyfy-storefront.html','snappyfy-product.html'];
+            const pages=['index.html','index-de.html','index-hr.html','klarwerk-system.html','snappyfy-system.html','snappyfy-storefront.html','snappyfy-product.html'];
             const widths=[{name:'desktop',width:1440,height:1000},{name:'mobile',width:390,height:844}];
             const report=[]; let failed=false;
             fs.mkdirSync('qa-screenshots',{recursive:true});
@@ -46,25 +46,39 @@ jobs:
                 const portrait=document.querySelector('.hero-profile-photo, .portrait-panel img');
                 return {overflow,images:all,links,portrait:portrait?.getAttribute('src')||null};
               });
-              if(p==='index.html'){
+              if(['index.html','index-de.html','index-hr.html'].includes(p)){
+                const expectedLang=p==='index.html'?'en':p==='index-de.html'?'de':'hr';
+                const actualLang=await page.locator('html').getAttribute('lang');
+                if(actualLang!==expectedLang)errors.push('Wrong html language: '+actualLang+' != '+expectedLang);
                 const education=page.locator('#education .education-qualification');
-                if(await education.count()!==1)errors.push('Confirmed education section not found');
+                if(await education.count()!==1)errors.push('Education section not found');
                 else if(!(await education.innerText()).includes('pristup. oec.'))errors.push('Education designation missing');
-                const portrait=page.locator('.hero-profile-photo');
+                const portrait=page.locator('.hero-portrait img');
                 if(await portrait.count()!==1)errors.push('Hero portrait missing');
-                else if(!(await portrait.evaluate(el=>el.complete&&el.naturalWidth>0)))errors.push('Hero portrait image not loaded');
-                for (const selector of ['button.expand-button','.career-toggle']){
-                  const btn=page.locator(selector).first();
-                  if(await btn.count()){
-                    await btn.click();
-                    if(await btn.getAttribute('aria-expanded')!=='true')errors.push(selector+' failed to open');
-                    await page.waitForTimeout(350);
-                    await btn.click();
-                    if(await btn.getAttribute('aria-expanded')!=='false')errors.push(selector+' failed to close');
-                    await page.waitForTimeout(350);
-                    const panel=page.locator('#'+await btn.getAttribute('aria-controls'));
-                    if(!(await panel.evaluate(el=>el.hidden)))errors.push(selector+' panel did not finish closing');
-                  }else errors.push(selector+' missing');
+                else if(!(await portrait.evaluate(el=>el.complete&&el.naturalWidth>0)))errors.push('Hero portrait not loaded');
+                if(await page.locator('.language-switch a').count()!==3)errors.push('Expected EN/DE/HR language links');
+                if(await page.locator('.language-switch a[aria-current="page"]').count()!==1)errors.push('Exactly one current language expected');
+                if(await page.locator('.project-card').count()!==2)errors.push('Existing project count changed');
+                const exp=page.locator('button.expand-button').first();
+                if(await exp.count()){
+                  await exp.click();
+                  if(await exp.getAttribute('aria-expanded')!=='true')errors.push('Project case study failed to open');
+                  await page.waitForTimeout(340);
+                  await exp.click();
+                  await page.waitForTimeout(340);
+                  if(await exp.getAttribute('aria-expanded')!=='false')errors.push('Project case study failed to close');
+                }else errors.push('Project accordion missing');
+                const career=page.locator('details.role-details').first();
+                if(await career.count()){
+                  await career.locator('summary').click();
+                  if(!await career.evaluate(el=>el.open))errors.push('Career details did not open');
+                  await career.locator('summary').click();
+                  if(await career.evaluate(el=>el.open))errors.push('Career details did not close');
+                }else errors.push('Career disclosure missing');
+                if(expectedLang==='hr'){
+                  const heading=await page.locator('h2').first().innerText();
+                  if(!/digitalne operacije/i.test(heading))errors.push('Croatian hero heading missing');
+                  if(!(await page.locator('body').innerText()).includes('Profesionalno'))errors.push('Croatian body translation missing');
                 }
               }
               if(check.overflow>2)errors.push('Horizontal overflow '+check.overflow+'px');
@@ -73,7 +87,7 @@ jobs:
               for(const im of check.images.filter(x=>!x.ok))errors.push('Image failed '+im.src);
               for(const l of check.links.filter(x=>!x.ok))errors.push('Broken anchor '+l.href);
               if(responses.length)errors.push(...responses);
-              const out='qa-screenshots/'+p.replace('.html','')+'-'+w.name+'.jpeg';
+              const out='qa-screenshots/'+p.replace(/\.html$/,'')+'-'+w.name+'.jpeg';
               await page.screenshot({path:out,fullPage:true,type:'jpeg',quality:72});
               report.push({page:p,viewport:w.name,overflow:check.overflow,images:check.images.length,portrait:check.portrait,errors,screenshot:out});
               console.log(JSON.stringify(report.at(-1)));
