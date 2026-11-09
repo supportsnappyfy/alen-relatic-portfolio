@@ -27,7 +27,7 @@ jobs:
           const fs=require('fs'); const path=require('path');
           (async()=> {
             const browser=await chromium.launch({headless:true,args:['--no-sandbox']});
-            const pages=['index.html','klarwerk-system.html','snappyfy-system.html','snappyfy-storefront.html','snappyfy-product.html'];
+            const pages=['index.html','index-en.html','index-de.html','projekti/snappyfy.html','projekti/klarwerk.html','projekti/career-os.html','projekti/finance-os.html','projekti/hlpm.html','klarwerk-system.html','snappyfy-system.html','snappyfy-storefront.html','snappyfy-product.html'];
             const widths=[{name:'desktop',width:1440,height:1000},{name:'mobile',width:390,height:844}];
             const report=[]; let failed=false;
             fs.mkdirSync('qa-screenshots',{recursive:true});
@@ -47,33 +47,37 @@ jobs:
                 return {overflow,images:all,links,portrait:portrait?.getAttribute('src')||null};
               });
               if(p==='index.html'){
-                const education=page.locator('#education .education-qualification');
-                if(await education.count()!==1)errors.push('Confirmed education section not found');
-                else if(!(await education.innerText()).includes('pristup. oec.'))errors.push('Education designation missing');
+                const education=page.locator('#obrazovanje .education-qualification');
+                if(await education.count()<1)errors.push('Croatian education section missing');
+                else if(!(await education.first().innerText()).includes('pristup. oec.'))errors.push('Education designation missing');
+                if(await page.locator('html').getAttribute('lang')!=='hr')errors.push('Croatian language not set');
                 const portrait=page.locator('.hero-profile-photo');
                 if(await portrait.count()!==1)errors.push('Hero portrait missing');
                 else if(!(await portrait.evaluate(el=>el.complete&&el.naturalWidth>0)))errors.push('Hero portrait image not loaded');
-                for (const selector of ['button.expand-button','.career-toggle']){
-                  const btn=page.locator(selector).first();
-                  if(await btn.count()){
-                    await btn.click();
-                    if(await btn.getAttribute('aria-expanded')!=='true')errors.push(selector+' failed to open');
-                    await page.waitForTimeout(350);
-                    await btn.click();
-                    if(await btn.getAttribute('aria-expanded')!=='false')errors.push(selector+' failed to close');
-                    await page.waitForTimeout(350);
-                    const panel=page.locator('#'+await btn.getAttribute('aria-controls'));
-                    if(!(await panel.evaluate(el=>el.hidden)))errors.push(selector+' panel did not finish closing');
-                  }else errors.push(selector+' missing');
+                const cards=page.locator('.project-card');
+                if(await cards.count()!==5)errors.push('Expected five project cards');
+                const tabs=page.locator('[data-diagram]');
+                if(await tabs.count()!==5)errors.push('Expected five architecture diagrams');
+                for (const id of ['snappyfy','klarwerk','career','finance','hlpm']){
+                  const tab=page.locator('[data-diagram="'+id+'"]');
+                  await tab.click();
+                  if(await tab.getAttribute('aria-selected')!=='true')errors.push('Tab '+id+' selection failed');
+                  if(await page.locator('[data-arch-panel="'+id+'"]').evaluate(el=>el.hidden))errors.push('Panel '+id+' not displayed');
                 }
+                const job=page.locator('details.job').first();if(await job.count()){
+                  await job.locator('summary').click();
+                  if(!(await job.evaluate(el=>el.open)))errors.push('Job disclosure did not open');
+                  await job.locator('summary').click();
+                  if(await job.evaluate(el=>el.open))errors.push('Job disclosure did not close');
+                }else errors.push('Career disclosure missing');
               }
               if(check.overflow>2)errors.push('Horizontal overflow '+check.overflow+'px');
               const internal=await page.locator('a[href]').evaluateAll(els=>els.map(a=>a.getAttribute('href')).filter(h=>h && !h.startsWith('http') && !h.startsWith('mailto:') && !h.startsWith('#')));
-              for(const href of internal){const pagefile=href.split('#')[0].split('?')[0];if(pagefile && !fs.existsSync(pagefile))errors.push('Missing internal page '+href)}
+              for(const href of internal){const pagefile=href.split('#')[0].split('?')[0];if(pagefile && !fs.existsSync(path.normalize(path.join(path.dirname(p),pagefile))))errors.push('Missing internal page '+href)}
               for(const im of check.images.filter(x=>!x.ok))errors.push('Image failed '+im.src);
               for(const l of check.links.filter(x=>!x.ok))errors.push('Broken anchor '+l.href);
               if(responses.length)errors.push(...responses);
-              const out='qa-screenshots/'+p.replace('.html','')+'-'+w.name+'.jpeg';
+              const out='qa-screenshots/'+p.replace(/\\.html$/,'').replace(/\\//g,'-')+'-'+w.name+'.jpeg';
               await page.screenshot({path:out,fullPage:true,type:'jpeg',quality:72});
               report.push({page:p,viewport:w.name,overflow:check.overflow,images:check.images.length,portrait:check.portrait,errors,screenshot:out});
               console.log(JSON.stringify(report.at(-1)));
