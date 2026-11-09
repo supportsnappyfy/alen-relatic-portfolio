@@ -28,7 +28,7 @@ jobs:
           (async()=> {
             const browser=await chromium.launch({headless:true,args:['--no-sandbox']});
             const pages=['index.html','index-de.html','index-hr.html','klarwerk-system.html','snappyfy-system.html','snappyfy-storefront.html','snappyfy-product.html'];
-            const widths=[{name:'desktop',width:1440,height:1000},{name:'mobile',width:390,height:844}];
+            const widths=[{name:'desktop',width:1440,height:1000},{name:'tablet',width:768,height:900},{name:'mobile',width:390,height:844},{name:'small-mobile',width:320,height:740}];
             const report=[]; let failed=false;
             fs.mkdirSync('qa-screenshots',{recursive:true});
             for(const w of widths) for(const p of pages){
@@ -59,6 +59,29 @@ jobs:
                 if(await page.locator('.language-switch a').count()!==3)errors.push('Expected EN/DE/HR language links');
                 if(await page.locator('.language-switch a[aria-current="page"]').count()!==1)errors.push('Exactly one current language expected');
                 if(await page.locator('.project-card').count()!==2)errors.push('Existing project count changed');
+                if(await page.locator('.sys-board-row').count()!==2)errors.push('Two project architecture maps missing');
+                if(await page.locator('.sys-board-row .sys-node').count()!==8)errors.push('Expected 8 connected architecture nodes');
+                const catalogs=page.locator('.sys-platform-catalog');
+                if(await catalogs.count()!==2)errors.push('Expected two expandable platform catalogs');
+                else {
+                  const details=page.locator('.sys-platform-catalog').first();
+                  await details.locator('summary').click();
+                  if(!(await details.evaluate(el=>el.open)))errors.push('Snappyfy tool catalog failed to expand');
+                  if(await details.locator('.sys-platform').count()<14)errors.push('Snappyfy full stack incomplete');
+                  await details.locator('summary').click();
+                  if(await details.evaluate(el=>el.open))errors.push('Snappyfy catalog failed to close');
+                  const klar=page.locator('.sys-platform-catalog').nth(1);
+                  await klar.locator('summary').click();
+                  if(!(await klar.evaluate(el=>el.open)))errors.push('Klarwerk catalog failed to expand');
+                  if(await klar.locator('.sys-platform').count()<12)errors.push('Klarwerk full tool stack incomplete');
+                  await klar.locator('summary').click();
+                }
+                if(await page.locator('.sys-tool-strip-list img').count()<7)errors.push('Background brand-logo strip missing');
+                if(await page.locator('link[href="systems-visuals.css"]').count()!==1)errors.push('Architecture CSS missing');
+                if(await page.locator('.chip-row img').count()<6)errors.push('Project icon badges missing');
+                const projectTitles=await page.locator('.sys-board-context h4').allTextContents();
+                if(projectTitles.length!==2||!projectTitles[0].includes('Snappyfy')||!projectTitles[1].includes('Klarwerk'))errors.push('Architecture subject mismatch');
+
                 const exp=page.locator('button.expand-button').first();
                 if(await exp.count()){
                   await exp.click();
@@ -81,12 +104,30 @@ jobs:
                   if(!(await page.locator('body').innerText()).includes('Profesionalno'))errors.push('Croatian body translation missing');
                 }
               }
+              if(['snappyfy-system.html','klarwerk-system.html'].includes(p)){
+                if(await page.locator('.sys-case').count()!==1)errors.push('Case-study architecture visual missing');
+                if(await page.locator('.sys-architecture-shell').count()!==1)errors.push('Detailed connected architecture missing');
+                if(p==='snappyfy-system.html'){
+                  if(await page.locator('.sys-layer-card').count()!==6)errors.push('Expected six historical architecture layers');
+                  if(await page.locator('.sys-case-stack .sys-platform').count()<14 && await page.locator('.sys-case-stack-group .sys-platform').count()<14)errors.push('Snappyfy integration inventory incomplete');
+                  for(const named of ['Firecrawl','CJ Dropshipping','Sendcloud','Creatomate','Resend','Clarity','Lexware Office']){
+                    if(!(await page.locator('.sys-case').innerText()).includes(named))errors.push('Missing historical integration '+named);
+                  }
+                }else{
+                  if(await page.locator('.sys-phase-card').count()!==3)errors.push('Klarwerk creation/QA pipeline incomplete');
+                  if(await page.locator('.sys-phase-lane').count()!==2)errors.push('Klarwerk distribution and analytics lanes incomplete');
+                  if(await page.locator('.sys-future-branch').count()!==1)errors.push('Planned KDP branch missing');
+                  if(await page.locator('.sys-case-stack-group .sys-platform').count()<12)errors.push('Klarwerk stack incomplete');
+                }
+              }
               if(check.overflow>2)errors.push('Horizontal overflow '+check.overflow+'px');
               const internal=await page.locator('a[href]').evaluateAll(els=>els.map(a=>a.getAttribute('href')).filter(h=>h && !h.startsWith('http') && !h.startsWith('mailto:') && !h.startsWith('#')));
               for(const href of internal){const pagefile=href.split('#')[0].split('?')[0];if(pagefile && !fs.existsSync(pagefile))errors.push('Missing internal page '+href)}
               for(const im of check.images.filter(x=>!x.ok))errors.push('Image failed '+im.src);
               for(const l of check.links.filter(x=>!x.ok))errors.push('Broken anchor '+l.href);
               if(responses.length)errors.push(...responses);
+              await page.evaluate(()=>window.scrollTo({top:0,behavior:'instant'}));
+              await page.waitForTimeout(180);
               const out='qa-screenshots/'+p.replace(/\.html$/,'')+'-'+w.name+'.jpeg';
               await page.screenshot({path:out,fullPage:true,type:'jpeg',quality:72});
               report.push({page:p,viewport:w.name,overflow:check.overflow,images:check.images.length,portrait:check.portrait,errors,screenshot:out});
