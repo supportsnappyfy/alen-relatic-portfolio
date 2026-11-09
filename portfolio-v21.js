@@ -1,0 +1,7 @@
+(()=>{"use strict";
+const year=document.getElementById("year");if(year)year.textContent=String(new Date().getFullYear());
+const button=document.querySelector(".menu-toggle"),nav=document.querySelector(".menu");if(button&&nav){button.addEventListener("click",()=>{let expanded=button.getAttribute("aria-expanded")==="true";button.setAttribute("aria-expanded",String(!expanded));nav.classList.toggle("open",!expanded);});nav.querySelectorAll("a").forEach(a=>a.addEventListener("click",()=>{button.setAttribute("aria-expanded","false");nav.classList.remove("open");}));}
+const tabs=[...document.querySelectorAll("[data-diagram]")],panels=[...document.querySelectorAll("[data-arch-panel]")];function showDiagram(id){tabs.forEach(tab=>{const selected=tab.dataset.diagram===id;tab.setAttribute("aria-selected",String(selected));tab.tabIndex=selected?0:-1;});panels.forEach(panel=>{panel.hidden=panel.dataset.archPanel!==id;});}
+tabs.forEach((tab,i)=>{tab.addEventListener("click",()=>showDiagram(tab.dataset.diagram));tab.addEventListener("keydown",e=>{if(["ArrowLeft","ArrowRight","Home","End"].includes(e.key)){e.preventDefault();let j=e.key==="Home"?0:e.key==="End"?tabs.length-1:(i+(e.key==="ArrowRight"?1:-1)+tabs.length)%tabs.length;tabs[j].focus();showDiagram(tabs[j].dataset.diagram);}});});
+if(tabs.length)showDiagram(tabs.find(t=>t.getAttribute("aria-selected")==="true")?.dataset.diagram||tabs[0].dataset.diagram);
+})();
