@@ -174,3 +174,10 @@
 @media(max-width:960px){.sys-platform-groups{grid-template-columns:1fr 1fr;}.sys-architecture-grid{grid-template-columns:repeat(2,minmax(0,1fr));}.sys-architecture-phase{grid-template-columns:1fr;}.sys-phase-arrow{transform:rotate(90deg);}}
 @media(max-width:740px){.sys-platform-catalog summary{font-size:12px;padding:12px 14px;}.sys-platform-catalog .sys-platform-catalog-body{padding:14px;}.sys-platform-groups{grid-template-columns:1fr;gap:16px;}.sys-architecture-shell{padding:14px;}.sys-architecture-label{display:block;}.sys-architecture-label span:last-child{display:block;margin-top:7px;}.sys-architecture-grid{grid-template-columns:1fr;}.sys-layer-card{min-height:unset;padding:15px;}.sys-architecture-core{grid-template-columns:1fr;}.sys-architecture-core-icons{gap:6px;}.sys-phase-cases{grid-template-columns:1fr;}.sys-future-branch{grid-template-columns:1fr;}.sys-case-expanded .sys-case-board{padding:17px 14px;}.sys-case-stack .sys-platform{font-size:10px;padding:7px 8px;}}
 @media(prefers-reduced-motion:reduce){.sys-layer-card{transition:none!important;}}
+
+/* The expanded architecture footer is on a pale background, unlike the previous dark board. */
+.sys-case-expanded .sys-case-footer{color:#4d6a60;}
+.sys-case-expanded .sys-case-footer a{color:#1d6d55;}
+.sys-case-expanded .sys-platform-group h5{font-size:10px;}
+.sys-case-expanded .sys-case-stack-group{margin-top:24px;}
+.sys-case-expanded .sys-case-stack-group>h3{margin-bottom:17px;}
