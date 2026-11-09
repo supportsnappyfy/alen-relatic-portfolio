@@ -77,6 +77,9 @@ jobs:
               for(const im of check.images.filter(x=>!x.ok))errors.push('Image failed '+im.src);
               for(const l of check.links.filter(x=>!x.ok))errors.push('Broken anchor '+l.href);
               if(responses.length)errors.push(...responses);
+              // QA interactions scroll the page; reset before capturing the full-page baseline.
+              await page.evaluate(()=>window.scrollTo({top:0,behavior:'instant'}));
+              await page.waitForTimeout(160);
               const out='qa-screenshots/'+p.replace(/\.html$/,'').replace(/\//g,'-')+'-'+w.name+'.jpeg';
               await page.screenshot({path:out,fullPage:true,type:'jpeg',quality:72});
               report.push({page:p,viewport:w.name,overflow:check.overflow,images:check.images.length,portrait:check.portrait,errors,screenshot:out});
