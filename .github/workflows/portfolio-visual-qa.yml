@@ -77,7 +77,7 @@ jobs:
               for(const im of check.images.filter(x=>!x.ok))errors.push('Image failed '+im.src);
               for(const l of check.links.filter(x=>!x.ok))errors.push('Broken anchor '+l.href);
               if(responses.length)errors.push(...responses);
-              const out='qa-screenshots/'+p.replace(/\\.html$/,'').replace(/\\//g,'-')+'-'+w.name+'.jpeg';
+              const out='qa-screenshots/'+p.replace(/\.html$/,'').replace(/\//g,'-')+'-'+w.name+'.jpeg';
               await page.screenshot({path:out,fullPage:true,type:'jpeg',quality:72});
               report.push({page:p,viewport:w.name,overflow:check.overflow,images:check.images.length,portrait:check.portrait,errors,screenshot:out});
               console.log(JSON.stringify(report.at(-1)));
