@@ -87,3 +87,17 @@
  .sys-node,.approach-section .principle{transition:none!important;animation:none!important;}
  .sys-node:not(:last-child)::after,.sys-case-board .sys-node:not(:last-child)::after{animation:none!important;}
 }
+
+/* Professional workflow timeline: existing text becomes a readable connected process. */
+.approach-section .principles{position:relative;}
+.approach-section .principles::before{content:"";position:absolute;top:36px;bottom:38px;left:22px;width:2px;background:linear-gradient(#448c79,#b2d1bb);opacity:.65;pointer-events:none;}
+.approach-section .principle{grid-template-columns:58px minmax(0,1fr);}
+.approach-section .principle>span{display:grid;place-items:center;position:relative;z-index:1;width:45px;height:45px;background:#123d3d;border:1px solid #609585;border-radius:13px;color:#daf5d1;box-shadow:0 5px 17px #163f3f19;font-weight:800;font-size:13px;}
+.approach-section .principle>span::before{display:none;}
+.sys-tool-strip{border-top:1px solid #d0dfd7;margin-top:25px;padding-top:21px;}
+.sys-tool-strip h4{color:#1f4d46;margin:0 0 12px;font-size:12px;letter-spacing:.04em;}
+.sys-tool-strip-list{display:flex;flex-wrap:wrap;gap:8px;}
+.sys-tool-strip-list span{display:inline-flex;gap:7px;align-items:center;border:1px solid #d7e6dc;background:#fff;color:#2b5c51;border-radius:8px;padding:7px 9px;font-size:10px;font-weight:750;line-height:1.2;}
+.sys-tool-strip-list img{display:block;width:17px;height:17px;object-fit:contain;flex:none;}
+.sys-tool-strip small{display:block;color:#637c72;font-size:10px;line-height:1.55;margin-top:11px;}
+@media(max-width:740px){.sys-tool-strip-list{gap:6px;}.sys-tool-strip-list span{padding:6px 7px;}}
