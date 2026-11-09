@@ -24,7 +24,7 @@ function toggleDisclosure(button) {
   button.setAttribute('aria-expanded', String(opening));
   const language = document.documentElement.lang;
   button.innerHTML = opening
-    ? (language === 'de' ? 'Details schließen' : 'Close details') + ' <span aria-hidden="true">↑</span>'
+    ? (language === 'de' ? 'Details schließen' : language === 'hr' ? 'Zatvori detalje' : 'Close details') + ' <span aria-hidden="true">↑</span>'
     : button.dataset.closedLabel;
   if (reducedMotion.matches || !panel.animate) {
     panel.hidden = !opening;
