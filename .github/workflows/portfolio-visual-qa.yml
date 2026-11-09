@@ -27,7 +27,7 @@ jobs:
           const fs=require('fs'); const path=require('path');
           (async()=> {
             const browser=await chromium.launch({headless:true,args:['--no-sandbox']});
-            const pages=['index.html','index-de.html','index-hr.html','klarwerk-system.html','snappyfy-system.html','snappyfy-storefront.html','snappyfy-product.html'];
+            const pages=['index.html','index-de.html','index-hr.html','klarwerk-system.html','snappyfy-system.html','snappyfy-storefront.html','snappyfy-product.html','snappyfy-backoffice.html'];
             const widths=[{name:'desktop',width:1440,height:1000},{name:'tablet',width:768,height:900},{name:'mobile',width:390,height:844},{name:'small-mobile',width:320,height:740}];
             const report=[]; let failed=false;
             fs.mkdirSync('qa-screenshots',{recursive:true});
@@ -120,6 +120,25 @@ jobs:
                   if(await page.locator('.sys-case-stack-group .sys-platform').count()<12)errors.push('Klarwerk stack incomplete');
                 }
               }
+
+              if(p==='snappyfy-backoffice.html'){
+                if((await page.locator('body').innerText()).includes('REAL CUSTOMER DATA'))errors.push('Unsafe data label in archive');
+                if(await page.locator('[data-tab]').count()!==7)errors.push('Expected seven archived module tabs');
+                if(await page.locator('.bo-panel').count()!==7)errors.push('Expected seven archive panels');
+                if(await page.locator('.bo-screenshot img').count()!==5)errors.push('Expected five authentic screenshot references');
+                if(await page.locator('.bo-no-image').count()!==2)errors.push('Non-photographed modules must carry honest notices');
+                for(const id of ['command','discovery','marketing','inventory','metrics','email','support']){
+                  const tab=page.locator('[data-tab="'+id+'"]');
+                  await tab.click();
+                  if(await tab.getAttribute('aria-selected')!=='true')errors.push('Tab '+id+' did not select');
+                  if(await page.locator('#panel-'+id).evaluate(el=>el.hidden))errors.push('Panel '+id+' hidden after activation');
+                }
+                await page.locator('#tab-command').click();
+                if(await page.locator('[aria-selected="true"][data-tab]').count()!==1)errors.push('Multiple active backoffice tabs');
+                if(await page.locator('form,input[type="password"]').count())errors.push('Backoffice archive unexpectedly includes login or entry form');
+                if(await page.locator('a[href*="snappyfy-system.html"]').count()<1)errors.push('Missing case-study return link');
+              }
+              if(['index.html','index-de.html','index-hr.html','snappyfy-system.html','snappyfy-storefront.html'].includes(p) && await page.locator('a[href="snappyfy-backoffice.html"]').count()===0)errors.push('No direct archived backoffice link');
               if(check.overflow>2)errors.push('Horizontal overflow '+check.overflow+'px');
               const internal=await page.locator('a[href]').evaluateAll(els=>els.map(a=>a.getAttribute('href')).filter(h=>h && !h.startsWith('http') && !h.startsWith('mailto:') && !h.startsWith('#')));
               for(const href of internal){const pagefile=href.split('#')[0].split('?')[0];if(pagefile && !fs.existsSync(pagefile))errors.push('Missing internal page '+href)}
