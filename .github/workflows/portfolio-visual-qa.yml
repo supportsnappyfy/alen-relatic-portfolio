@@ -82,14 +82,16 @@ jobs:
                 const projectTitles=await page.locator('.sys-board-context h4').allTextContents();
                 if(projectTitles.length!==2||!projectTitles[0].includes('Snappyfy')||!projectTitles[1].includes('Klarwerk'))errors.push('Architecture subject mismatch');
 
-                const exp=page.locator('button.expand-button').first();
-                if(await exp.count()){
+                const expanders=page.locator('button.expand-button');
+                if(await expanders.count()===2)for(const exp of await expanders.all()){
+                  const target=page.locator('#'+await exp.getAttribute('aria-controls'));
+                  if(await exp.getAttribute('aria-expanded')!=='true'||!await target.isVisible())errors.push('Project evidence should be visible initially');
                   await exp.click();
-                  if(await exp.getAttribute('aria-expanded')!=='true')errors.push('Project case study failed to open');
                   await page.waitForTimeout(340);
+                  if(await exp.getAttribute('aria-expanded')!=='false'||await target.isVisible())errors.push('Project case study failed to close');
                   await exp.click();
                   await page.waitForTimeout(340);
-                  if(await exp.getAttribute('aria-expanded')!=='false')errors.push('Project case study failed to close');
+                  if(await exp.getAttribute('aria-expanded')!=='true'||!await target.isVisible())errors.push('Project case study failed to reopen');
                 }else errors.push('Project accordion missing');
                 const career=page.locator('details.role-details').first();
                 if(await career.count()){
@@ -165,3 +167,4 @@ jobs:
           name: portfolio-visual-report
           path: qa-screenshots/
           retention-days: 7
+
