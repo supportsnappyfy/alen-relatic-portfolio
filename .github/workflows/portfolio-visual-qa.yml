@@ -27,7 +27,7 @@ jobs:
           const fs=require('fs'); const path=require('path');
           (async()=> {
             const browser=await chromium.launch({headless:true,args:['--no-sandbox']});
-            const pages=['index.html','index-de.html','index-hr.html','klarwerk-system.html','snappyfy-system.html','snappyfy-storefront.html','snappyfy-product.html','snappyfy-backoffice.html'];
+            const pages=['index.html','index-de.html','index-hr.html','klarwerk-system.html','snappyfy-system.html','snappyfy-storefront.html','snappyfy-product.html','snappyfy-backoffice.html','career-os.html','finance-os.html','hlpm.html','career-os-de.html','finance-os-de.html','hlpm-de.html','career-os-hr.html','finance-os-hr.html','hlpm-hr.html'];
             const widths=[{name:'desktop',width:1440,height:1000},{name:'tablet',width:768,height:900},{name:'mobile',width:390,height:844},{name:'small-mobile',width:320,height:740}];
             const report=[]; let failed=false;
             fs.mkdirSync('qa-screenshots',{recursive:true});
@@ -61,6 +61,10 @@ jobs:
                 if(await page.locator('.language-switch a').count()!==3)errors.push('Expected EN/DE/HR language links');
                 if(await page.locator('.language-switch a[aria-current="page"]').count()!==1)errors.push('Exactly one current language expected');
                 if(await page.locator('.project-card').count()!==2)errors.push('Existing project count changed');
+                const addedCases=page.locator('.rd-additional-card');
+                if(await addedCases.count()!==3)errors.push('Expected 3 extra research/system cases');
+                const suffix=expectedLang==='en'?'':'-'+expectedLang;
+                for(const id of ['career-os','finance-os','hlpm'])if(await addedCases.locator('a[href="'+id+suffix+'.html"]').count()!==1)errors.push('Missing localized case link '+id);
                 if(await page.locator('.sys-board-row').count()!==2)errors.push('Two project architecture maps missing');
                 if(await page.locator('.sys-board-row .sys-node').count()!==8)errors.push('Expected 8 connected architecture nodes');
                 const catalogs=page.locator('.sys-platform-catalog');
@@ -108,6 +112,23 @@ jobs:
                   if(!/digitalne operacije/i.test(heading))errors.push('Croatian hero heading missing');
                   if(!(await page.locator('body').innerText()).includes('Profesionalno'))errors.push('Croatian body translation missing');
                 }
+              }
+              if(/^(career-os|finance-os|hlpm)(-de|-hr)?\.html$/.test(p)){
+                const lang=p.endsWith('-de.html')?'de':p.endsWith('-hr.html')?'hr':'en';
+                const id=p.replace(/(-de|-hr)?\.html$/,'');
+                if(await page.locator('html').getAttribute('lang')!==lang)errors.push('Wrong research case language');
+                if(await page.locator('body[data-case-page="'+id+'"]').count()!==1)errors.push('Case id missing');
+                if(await page.locator('h1').count()!==1)errors.push('Case heading count mismatch');
+                if(await page.locator('.rd-steps li').count()!==5)errors.push('Five diagram stages required');
+                if(await page.locator('.rd-status-grid .rd-evidence').count()!==2)errors.push('Actual and pending status boundaries missing');
+                if(await page.locator('#privacy').count()!==1)errors.push('Privacy boundary missing');
+                if(await page.locator('form,iframe,input,script').count())errors.push('Research page must remain read-only');
+                if(await page.locator('.rd-languages a').count()!==3||await page.locator('.rd-languages a[aria-current="page"]').count()!==1)errors.push('Localized case switch missing');
+                if(await page.locator('.rd-related-grid a').count()!==2)errors.push('Related cases navigation missing');
+                const home=lang==='en'?'index.html':'index-'+lang+'.html';
+                if(await page.locator('a[href="'+home+'#work"]').count()<1)errors.push('Missing localized return link');
+                await page.locator('a[href="#workflow"]').click();
+                if(!page.url().endsWith('#workflow'))errors.push('Case workflow anchor does not navigate');
               }
               if(['snappyfy-system.html','klarwerk-system.html'].includes(p)){
                 if(await page.locator('.sys-case').count()!==1)errors.push('Case-study architecture visual missing');
