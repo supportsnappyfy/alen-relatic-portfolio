@@ -235,3 +235,7 @@
 html[lang="de"] .education-intro,
 html[lang="de"] .education-record,
 html[lang="de"] .hero-copy h2 { overflow-wrap: anywhere; }
+
+
+/* Font-independent CTA glyphs; labels remain the accessible names. */
+.cta-icon { display: inline-block; flex: none; vertical-align: -0.12em; width: 13px; height: 13px; }
