@@ -51,7 +51,7 @@ jobs:
                 const actualLang=await page.locator('html').getAttribute('lang');
                 if(actualLang!==expectedLang)errors.push('Wrong html language: '+actualLang+' != '+expectedLang);
                 if(await page.locator('svg.cta-icon[aria-hidden="true"][focusable="false"] path').count()!==10)errors.push('Expected 10 font-independent CTA icons');
-                if(expectedLang==='de' && !(await page.locator('#klarwerk-detail').innerText()).includes('Familienmissionen und Waldentdecker'))errors.push('German product conjunction not localized');
+                if(expectedLang==='de' && !(await page.locator('#klarwerk-detail').textContent()).includes('Familienmissionen und Waldentdecker'))errors.push('German product conjunction not localized');
                 const education=page.locator('#education .education-qualification');
                 if(await education.count()!==1)errors.push('Education section not found');
                 else if(!(await education.innerText()).includes('pristup. oec.'))errors.push('Education designation missing');
@@ -91,14 +91,20 @@ jobs:
                 const expanders=page.locator('button.expand-button');
                 if(await expanders.count()===2)for(const exp of await expanders.all()){
                   const target=page.locator('#'+await exp.getAttribute('aria-controls'));
-                  if(await exp.getAttribute('aria-expanded')!=='true'||!await target.isVisible())errors.push('Project evidence should be visible initially');
+                  if(await exp.getAttribute('aria-expanded')!=='false'||await target.isVisible())errors.push('Project evidence should be compact initially');
+                  if((await target.textContent()).trim().length<100)errors.push('Project evidence missing');
                   await exp.click();
-                  await page.waitForTimeout(340);
+                  await page.waitForTimeout(400);
+                  if(await exp.getAttribute('aria-expanded')!=='true'||!await target.isVisible())errors.push('Project case study failed to open');
+                  await exp.click();
+                  await page.waitForTimeout(400);
                   if(await exp.getAttribute('aria-expanded')!=='false'||await target.isVisible())errors.push('Project case study failed to close');
                   await exp.click();
-                  await page.waitForTimeout(340);
+                  await page.waitForTimeout(400);
                   if(await exp.getAttribute('aria-expanded')!=='true'||!await target.isVisible())errors.push('Project case study failed to reopen');
                   if(await exp.locator('svg.cta-icon path').count()!==1)errors.push('Reopened disclosure CTA icon missing');
+                  await exp.click();
+                  await page.waitForTimeout(400);
                 }else errors.push('Project accordion missing');
                 const career=page.locator('details.role-details').first();
                 if(await career.count()){
