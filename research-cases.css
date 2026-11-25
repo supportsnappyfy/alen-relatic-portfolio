@@ -101,3 +101,29 @@
  .rd-evidence { padding:18px; }
  .rd-additional-card { padding:16px; }
 }
+
+/* Compact, animated research case cards — CSS only, no new dependencies or scripts. */
+.rd-additional{margin-top:clamp(30px,5vw,62px)}
+.rd-additional-grid{align-items:stretch}
+.rd-additional-card{border-radius:16px;box-shadow:0 8px 24px #163a2b0b;transition:transform .35s cubic-bezier(.2,.75,.25,1),box-shadow .35s,border-color .35s}
+.rd-additional-card p{line-height:1.6;max-width:47ch}
+.rd-casepage .rd-text,.rd-casepage .rd-evidence,.rd-casepage .rd-summary{border-radius:20px;box-shadow:0 14px 35px #153e3210}
+.rd-casepage .rd-text{padding:clamp(18px,3vw,32px);background:#fff;border:1px solid #dbe7de}
+.rd-casepage .rd-text p,.rd-casepage .rd-evidence p{line-height:1.65;max-width:58ch;text-wrap:pretty}
+.rd-casepage .rd-section{padding:clamp(38px,5vw,72px) 0}
+.rd-casepage .rd-hero{background-image:radial-gradient(ellipse at 100% 0%,#2f605951,transparent 55%)}
+.rd-casepage .rd-related-grid a,.rd-casepage .rd-steps li{border-radius:14px;transition:transform .3s,box-shadow .3s}
+.rd-casepage h1,.rd-casepage h2,.rd-casepage h3{text-wrap:balance;overflow-wrap:break-word}
+@keyframes pf-rd-appear{from{opacity:.65;transform:translateY(13px)}to{opacity:1;transform:translateY(0)}}
+@media(hover:hover) and (pointer:fine){
+ .rd-additional-card:hover,.rd-casepage .rd-related-grid a:hover,.rd-casepage .rd-steps li:hover{transform:translateY(-3px);box-shadow:0 12px 28px #142e1f16}
+}
+@media(prefers-reduced-motion:no-preference){
+ .rd-casepage .rd-hero-grid>div{animation:pf-rd-appear .65s cubic-bezier(.2,.75,.25,1) both}
+ .rd-casepage .rd-hero-grid>div:nth-child(2){animation-delay:.12s}
+ @supports(animation-timeline:view()){
+  .rd-casepage :where(.rd-text,.rd-evidence,.rd-steps li,.rd-related-grid a){animation:pf-rd-appear linear both;animation-timeline:view();animation-range:entry 0% entry 40%}
+  .rd-additional-card{animation:pf-rd-appear linear both;animation-timeline:view();animation-range:entry 0% entry 35%}
+ }
+}
+@media(prefers-reduced-motion:reduce){.rd-casepage *, .rd-additional-card{animation:none!important;transition:none!important}.rd-casepage{scroll-behavior:auto}}
