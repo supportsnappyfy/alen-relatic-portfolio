@@ -342,3 +342,37 @@ main :where(section[id],div[id],details[id]){scroll-margin-top:95px}
  .project-card .project-feature-link,.project-card .project-link-row .text-link{min-width:0;overflow-wrap:anywhere}
  .section-heading,.education-layout,.education-records,.background-grid,.contact-layout{min-width:0}
 }
+
+/* Mobile intrinsic sizing: preserve readable content without clipping or hiding overflow.
+   Long localized words, cards and chip labels must not set an implicit grid minimum. */
+@media (max-width: 420px) {
+  html[lang] body :where(main,header.site-header,footer.site-footer) :where(.wrap,section,article,aside,div,figure,details,summary,ul,ol,li,h1,h2,h3,h4,p,a,button,span,strong,small,em,abbr) {
+    min-inline-size: 0;
+    overflow-wrap: anywhere;
+    word-break: normal;
+  }
+  html[lang] body :where(main,header.site-header,footer.site-footer) :where(.wrap,section,article,aside,div,figure,details,summary,ul,ol,li,h1,h2,h3,h4,p,a,button,span,strong,small,em,abbr) {
+    max-inline-size: 100%;
+  }
+  .project-grid,.career-section .career-timeline,.career-section .earlier-experience,
+  .education-layout,.education-records,.approach-grid,.background-grid,.contact-layout,
+  .principles,.rd-additional-grid,.sys-board-row,.sys-flow,.sys-platform-groups {
+    grid-template-columns: minmax(0,1fr);
+  }
+  .approach-section .principle {grid-template-columns: minmax(0,42px) minmax(0,1fr);gap:12px;}
+  .hero .hero-grid {grid-template-columns:minmax(0,1fr) minmax(0,30%);}
+  .hero .hero-grid > * {min-inline-size:0;}
+  .section-heading > *, .sys-heading > *, .rd-additional-heading > *,
+  .background-aside > *, .career-role > *, .contact-layout > *, .education-layout > * {min-width:0;max-width:100%;}
+  .project-card .pill,.chip-row .sys-tool-chip,.sys-platform,.skill-list span,
+  .sys-tool-strip-list span,.career-tags span,.rd-cardtag,.sys-board-status,
+  .project-card .project-feature-link,.btn,.text-link,.career-section summary,
+  .sys-platform-catalog summary,.nav-list a {white-space:normal;overflow-wrap:anywhere;max-width:100%;}
+  .project-card .chip-row,.sys-platform-items,.sys-tool-strip-list,.skill-list,.career-tags,
+  .contact-buttons,.hero-cta-row,.footer-layout {flex-wrap:wrap;min-width:0;}
+  .sys-platform-catalog summary::after,.career-section details > summary::after {flex:none;}
+  .project-card .project-visual img, .hero-portrait img {max-width:100%;}
+  .site-header .brand{min-width:0;flex:1 1 0;}
+  .site-header .brand-label{overflow-wrap:anywhere;min-width:0;}
+  .site-header .menu-toggle{flex:0 0 44px;}
+}

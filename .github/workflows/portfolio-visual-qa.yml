@@ -43,8 +43,15 @@ jobs:
                 const all=[...document.images].map(x=>({src:x.getAttribute('src'),ok:x.complete&&x.naturalWidth>0,natural:[x.naturalWidth,x.naturalHeight]}));
                 const links=[...document.querySelectorAll('a[href^="#"]')].filter(a=>a.getAttribute('href')!=='#').map(a=>({href:a.getAttribute('href'),ok:!!document.getElementById(a.getAttribute('href').slice(1))}));
                 const overflow=Math.max(0,document.documentElement.scrollWidth-innerWidth);
+                const overflowElements = overflow > 2 ? [...document.querySelectorAll('body *')].filter(el => {
+                  const r=el.getBoundingClientRect(), s=getComputedStyle(el);
+                  return r.width>0 && s.position!=='fixed' && (r.right>innerWidth+2 || r.left < -2 || el.scrollWidth>el.clientWidth+3 && s.overflowX==='visible');
+                }).map(el => {
+                  const r=el.getBoundingClientRect(),s=getComputedStyle(el);
+                  return {tag:el.tagName,id:el.id,cls:typeof el.className==='string'?el.className:'svg',right:Math.round(r.right),left:Math.round(r.left),width:Math.round(r.width),scrollWidth:el.scrollWidth,clientWidth:el.clientWidth,whiteSpace:s.whiteSpace,display:s.display,text:(el.innerText||'').trim().slice(0,100)};
+                }).sort((a,b)=>b.right-a.right).slice(0,30) : [];
                 const portrait=document.querySelector('.hero-profile-photo, .portrait-panel img');
-                return {overflow,images:all,links,portrait:portrait?.getAttribute('src')||null};
+                return {overflow,overflowElements,images:all,links,portrait:portrait?.getAttribute('src')||null};
               });
               if(['index.html','index-de.html','index-hr.html'].includes(p)){
                 const expectedLang=p==='index.html'?'en':p==='index-de.html'?'de':'hr';
@@ -171,7 +178,7 @@ jobs:
                 if(await page.locator('a[href*="snappyfy-system.html"]').count()<1)errors.push('Missing case-study return link');
               }
               if(['index.html','index-de.html','index-hr.html','snappyfy-system.html','snappyfy-storefront.html'].includes(p) && await page.locator('a[href="snappyfy-backoffice.html"]').count()===0)errors.push('No direct archived backoffice link');
-              if(check.overflow>2)errors.push('Horizontal overflow '+check.overflow+'px');
+              if(check.overflow>2){errors.push('Horizontal overflow '+check.overflow+'px'); console.log('OVERFLOW_DIAGNOSTICS '+p+' '+w.name+' '+JSON.stringify(check.overflowElements));}
               const internal=await page.locator('a[href]').evaluateAll(els=>els.map(a=>a.getAttribute('href')).filter(h=>h && !h.startsWith('http') && !h.startsWith('mailto:') && !h.startsWith('#')));
               for(const href of internal){const pagefile=href.split('#')[0].split('?')[0];if(pagefile && !fs.existsSync(pagefile))errors.push('Missing internal page '+href)}
               for(const im of check.images.filter(x=>!x.ok))errors.push('Image failed '+im.src);
