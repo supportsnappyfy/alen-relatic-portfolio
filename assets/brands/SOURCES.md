@@ -18,3 +18,11 @@ Brand marks identify the named tools only; no affiliation is implied. Logos are 
 - powerpoint: https://github.com/homarr-labs/dashboard-icons/blob/HEAD/svg/microsoft-powerpoint.svg (blob 40c971bc89b04242dd1ee4b87f5752e041fa1b70)
 - jenkins: https://github.com/devicons/devicon/blob/HEAD/icons/jenkins/jenkins-original.svg (blob 2ccb4f3a521e6c19d1066b41c2c7f8ffc4e35262)
 - chatgpt: https://github.com/gilbarbara/logos/blob/HEAD/logos/openai-icon.svg (blob d9445723fffb7c8beace9432cea81c3e73405ecc)
+
+- githubpages: https://github.com/simple-icons/simple-icons/blob/HEAD/icons/githubpages.svg (blob bd3d5167bb44cbfe299c865b1ca278081121fa5e)
+- firecrawl: https://github.com/gilbarbara/logos/blob/HEAD/logos/firecrawl-icon.svg (blob 5f12710839418fe90e8e6b2a88ccae125636c423)
+- buffer: https://github.com/simple-icons/simple-icons/blob/HEAD/icons/buffer.svg (blob 1d32104def7ba31ddae40a9575d00ea890ef9c0d)
+- wordpress: https://github.com/simple-icons/simple-icons/blob/HEAD/icons/wordpress.svg (blob 08ecac100f6acaf579e5d5e23461fb0783bd9f32)
+- mailchimp: https://github.com/gilbarbara/logos/blob/HEAD/logos/mailchimp-icon.svg (blob da6b53bb15d4e3e7c00303d5ef23e73cc43f0024)
+- replicate: https://github.com/simple-icons/simple-icons/blob/HEAD/icons/replicate.svg (blob 4a48bce8a7755b7deabdfa45eb2e54d3c1f29d9c)
+- runway: https://github.com/gilbarbara/logos/blob/HEAD/logos/runway-icon.svg (blob 26a32962921968904774ba1ca79ccb50f90375ce)
