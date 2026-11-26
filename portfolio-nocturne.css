@@ -259,3 +259,25 @@ body.pf-nocturne{
  .pf-nocturne .background-aside{padding:16px}
 }
 @media(prefers-reduced-motion:reduce){.pf-nocturne *, .pf-nocturne *::before,.pf-nocturne *::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+
+/* Final editorial refinement — compact contact and categorized tool inventory. */
+.pf-nocturne .contact-layout{display:block;max-width:1200px}
+.pf-nocturne .contact-section{padding:clamp(30px,4vw,56px) 0}
+.pf-nocturne .contact-section h2{font-size:clamp(32px,4vw,52px);max-width:22ch}
+.pf-nocturne .contact-section p{margin:12px 0 18px;max-width:70ch}
+.pf-nocturne .contact-buttons{gap:10px}
+.pf-nocturne .pf-tools h4{font-size:16px;margin-bottom:12px}
+.pf-nocturne .pf-tool-group{border:1px solid #41576b;border-radius:12px;margin-top:8px;background:#101e2e;overflow:hidden}
+.pf-nocturne .pf-tool-group summary{display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:48px;padding:10px 13px;color:#f0f6ff;cursor:pointer;font-size:13px;font-weight:750;list-style:none}
+.pf-nocturne .pf-tool-group summary::-webkit-details-marker{display:none}
+.pf-nocturne .pf-tool-group summary>span{color:#bff18e;font-size:22px;transition:transform .25s}
+.pf-nocturne .pf-tool-group[open] summary>span{transform:rotate(45deg)}
+.pf-nocturne .pf-tool-group[open] summary{border-bottom:1px solid #405467}
+.pf-nocturne .pf-tool-categories{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;padding:14px}
+.pf-nocturne .pf-tool-category{min-width:0}
+.pf-nocturne .pf-tool-category h5{font-size:12px;margin:0 0 7px;color:#b9c9db;font-weight:700}
+.pf-nocturne .pf-tool-category .sys-tool-strip-list{gap:6px}
+.pf-nocturne .pf-tool-category .sys-tool-strip-list>span{padding:6px 9px;min-height:32px;max-width:100%;font-size:11px;line-height:1.35;overflow-wrap:anywhere}
+.pf-nocturne .pf-tool-category .sys-tool-strip-list .pf-tool-mark{display:inline-grid;place-items:center;flex:none;width:19px;height:19px;min-height:0;padding:0;background:#183a43;color:#f0fffa;border:0;border-radius:4px;font-size:9px;font-weight:800}
+.pf-nocturne .rd-additional-card p{min-height:0}
+@media(max-width:740px){.pf-nocturne .pf-tool-categories{grid-template-columns:minmax(0,1fr);padding:12px}.pf-nocturne .skill-list span{font-size:12px;padding:6px 9px}.pf-nocturne .contact-section{padding:30px 0}.pf-nocturne .contact-section p{font-size:13px}}

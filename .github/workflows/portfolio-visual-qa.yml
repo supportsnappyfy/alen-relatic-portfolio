@@ -106,6 +106,15 @@ jobs:
                 const theme=await page.evaluate(()=>({body:getComputedStyle(document.body).backgroundColor,hero:getComputedStyle(document.querySelector('.hero')).backgroundImage,main:getComputedStyle(document.querySelector('.work-section')).backgroundColor}));
                 if(await page.locator('body.pf-nocturne').count()!==1||!theme.hero.includes('radial-gradient')||theme.body!=='rgb(8, 14, 28)')errors.push('Dark gradient design missing '+JSON.stringify(theme));
                 if(await page.locator('.pf-card-summary').count()!==2)errors.push('Compact project summaries missing');
+                if(await page.locator('.contact-aside').count())errors.push('Redundant contact slogan remains');
+                if(await page.locator('.pf-tool-group').count()!==2)errors.push('Two categorized tool groups required');
+                else for(const toolGroup of await page.locator('.pf-tool-group').all()){
+                  await toolGroup.locator('summary').click();
+                  if(!(await toolGroup.evaluate(el=>el.open)))errors.push('Tool group failed to expand');
+                  await toolGroup.locator('summary').click();
+                  if(await toolGroup.evaluate(el=>el.open))errors.push('Tool group failed to close');
+                }
+                if(!(await page.locator('.rd-additional-card h4').allTextContents()).includes('HLP Model'))errors.push('Correct HLP model name missing');
                 if(await page.locator('.sys-tool-strip-list img').count()<7)errors.push('Background brand-logo strip missing');
                 if(await page.locator('link[href="portfolio-nocturne.css"]').count()!==1)errors.push('Nocturne stylesheet missing');
                 if(await page.locator('link[href="systems-visuals.css"]').count()!==1)errors.push('Architecture CSS missing');
@@ -150,6 +159,10 @@ jobs:
                 if(await page.locator('html').getAttribute('lang')!==lang)errors.push('Wrong research case language');
                 if(await page.locator('body[data-case-page="'+id+'"]').count()!==1)errors.push('Case id missing');
                 if(await page.locator('h1').count()!==1)errors.push('Case heading count mismatch');
+                if(id==='hlpm'){
+                  const modes=await page.locator('.rd-mode h3').allTextContents();
+                  if(modes.length!==2||!modes.includes('Life Mode')||!modes.includes('Astro Research Mode'))errors.push('Approved HLP modes missing');
+                }else if(await page.locator('.rd-demo figcaption').count()!==1)errors.push('Labeled illustrative overview missing');
                 if(await page.locator('.rd-steps li').count()!==5)errors.push('Five diagram stages required');
                 if(await page.locator('.rd-status-grid .rd-evidence').count()!==2)errors.push('Actual and pending status boundaries missing');
                 if(await page.locator('#privacy').count()!==1)errors.push('Privacy boundary missing');
