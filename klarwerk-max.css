@@ -73,3 +73,12 @@
 .kw-product-top.wald img.kw-wald-sheet{right:4%;bottom:-16%;width:43%;height:90%;object-fit:contain;object-position:top;border-width:5px}
 .kw-product-top.advent img{width:100%;height:100%;object-fit:contain;object-position:center;background:#f4f0e6}
 @media(max-width:690px){.kw-product-top.wald img.kw-wald-promo{top:4%;height:91%;width:56%}.kw-product-top.wald img.kw-wald-sheet{bottom:-13%;height:89%;border-width:4px}.kw-product-body .kw-product-sticker{font-size:10px}}
+
+/* Publishing case: more visual rhythm, unchanged proof and product gallery. */
+.kw-page .kw-section,.kw-page .kw-kdp{padding-block:clamp(44px,6vw,86px)}
+.kw-page .kw-stage,.kw-page .kw-product,.kw-page .kw-lane,.kw-page .kw-kdp-track,.kw-page .kw-proof-note{border-radius:16px}
+.kw-page .kw-stage,.kw-page .kw-product{box-shadow:0 10px 28px #163a2b10}
+.kw-page .kw-stage p,.kw-page .kw-product-body p,.kw-page .kw-lane p{line-height:1.65}
+.kw-page .kw-stage,.kw-page .kw-lane,.kw-page .kw-product{transition:transform .3s cubic-bezier(.2,.75,.25,1),box-shadow .3s}
+@media(hover:hover) and (pointer:fine){.kw-page .kw-stage:hover,.kw-page .kw-product:hover,.kw-page .kw-lane:hover{transform:translateY(-3px);box-shadow:0 16px 32px #163a2b17}}
+@media(prefers-reduced-motion:reduce){.kw-page *{animation:none!important;transition:none!important}}

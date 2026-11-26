@@ -17,7 +17,7 @@ function toggleDisclosure(button) {
   const panel = document.getElementById(button.dataset.target);
   if (!panel) return;
   const opening = button.getAttribute('aria-expanded') !== 'true';
-  panel.getAnimations().forEach(animation => animation.cancel());
+  if (panel.getAnimations) panel.getAnimations().forEach(animation => animation.cancel());
   const initialHeight = panel.hidden ? 0 : panel.getBoundingClientRect().height;
   panel.hidden = false;
   const targetHeight = opening ? panel.scrollHeight : 0;
@@ -75,3 +75,75 @@ document.querySelectorAll('.language-switch a').forEach(link => {
     link.hash = window.location.hash;
   });
 });
+
+/* Compact first view, all original evidence remains in the DOM and available without JS. */
+(() => {
+  const main = document.querySelector('main');
+  if (!main) return;
+  const buttons = Array.from(document.querySelectorAll('.expand-button'));
+  for (const button of buttons) {
+    const panel = document.getElementById(button.dataset.target || '');
+    if (!panel || !button.dataset.closedLabel) continue;
+    panel.hidden = true;
+    button.setAttribute('aria-expanded','false');
+  }
+  const revealAnchor = () => {
+    let id;
+    try { id = decodeURIComponent(location.hash.slice(1)); } catch (_) { return; }
+    if (!id) return;
+    const target = document.getElementById(id);
+    if (!target) return;
+    const panel = target.closest('.case-detail[hidden]');
+    if (panel) {
+      const button = buttons.find(b => b.dataset.target === panel.id);
+      if (button) {
+        button.click();
+        requestAnimationFrame(() => target.scrollIntoView({block:'start'}));
+      }
+    }
+    for (let el = target; el && el !== main; el = el.parentElement) {
+      if (el.tagName === 'DETAILS') el.open = true;
+    }
+  };
+  revealAnchor();
+  window.addEventListener('hashchange', revealAnchor);
+  if (reducedMotion.matches) return;
+  const progress = document.createElement('div');
+  progress.className = 'pf-progress';
+  progress.setAttribute('aria-hidden','true');
+  const fill = document.createElement('span');
+  progress.appendChild(fill);
+  document.body.appendChild(progress);
+  let queued = false;
+  const sync = () => {
+    queued = false;
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    const fraction = max > 0 ? Math.max(0, Math.min(1, window.scrollY / max)) : 0;
+    fill.style.transform = 'scaleX(' + fraction + ')';
+  };
+  const queue = () => { if (!queued) { queued = true; requestAnimationFrame(sync); } };
+  window.addEventListener('scroll', queue, {passive:true});
+  window.addEventListener('resize', queue, {passive:true});
+  document.addEventListener('toggle', queue, true);
+  if ('ResizeObserver' in window) new ResizeObserver(queue).observe(main);
+  queue();
+  if (!('IntersectionObserver' in window) || !Element.prototype.animate) return;
+  const observer = new IntersectionObserver(entries => {
+    for (const entry of entries) {
+      if (!entry.isIntersecting) continue;
+      observer.unobserve(entry.target);
+      if (reducedMotion.matches || entry.target.closest('[hidden]')) continue;
+      entry.target.animate([{opacity:.72,transform:'translateY(12px)'},{opacity:1,transform:'translateY(0)'}],{
+        duration:520,delay:Number(entry.target.dataset.pfDelay || 0),easing:'cubic-bezier(.2,.75,.25,1)'
+      });
+    }
+  },{threshold:.08,rootMargin:'0px 0px -12px 0px'});
+  const selectors='.hero-copy,.hero-portrait,.project-content,.rd-additional-card,.sys-node,.career-body,.education-intro,.principle,.background-aside';
+  main.querySelectorAll(selectors).forEach((el,i) => {
+    el.dataset.pfDelay=String((i%4)*45);
+    observer.observe(el);
+  });
+  if (typeof reducedMotion.addEventListener === 'function') reducedMotion.addEventListener('change', () => {
+    if (reducedMotion.matches) { observer.disconnect(); progress.remove(); if (main.getAnimations) main.getAnimations({subtree:true}).forEach(a=>a.cancel()); }
+  });
+})();
