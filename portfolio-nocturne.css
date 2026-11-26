@@ -281,3 +281,18 @@ body.pf-nocturne{
 .pf-nocturne .pf-tool-category .sys-tool-strip-list .pf-tool-mark{display:inline-grid;place-items:center;flex:none;width:19px;height:19px;min-height:0;padding:0;background:#183a43;color:#f0fffa;border:0;border-radius:4px;font-size:9px;font-weight:800}
 .pf-nocturne .rd-additional-card p{min-height:0}
 @media(max-width:740px){.pf-nocturne .pf-tool-categories{grid-template-columns:minmax(0,1fr);padding:12px}.pf-nocturne .skill-list span{font-size:12px;padding:6px 9px}.pf-nocturne .contact-section{padding:30px 0}.pf-nocturne .contact-section p{font-size:13px}}
+
+/* Professional-first order. Always-visible compact brand inventory. */
+.pf-nocturne .pf-tool-groups{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;align-items:start}
+.pf-nocturne .pf-tool-group{margin:0;min-width:0;overflow:visible;border-radius:14px;background:linear-gradient(145deg,#14273a,#101e2e)}
+.pf-nocturne .pf-tool-group-heading{font-size:15px;line-height:1.35;margin:0;padding:13px 15px;color:#eaf3ff;border-bottom:1px solid #405467}
+.pf-nocturne .pf-tool-categories{display:grid;grid-template-columns:minmax(0,1fr);gap:12px;padding:13px}
+.pf-nocturne .pf-tool-category h6{font-size:11px;line-height:1.4;color:#bdd2df;letter-spacing:.015em;margin:0 0 7px;font-weight:700}
+.pf-nocturne .pf-tool-category .sys-tool-strip-list{gap:5px;justify-content:flex-start}
+.pf-nocturne .pf-tool-category .sys-tool-strip-list>.pf-brand-chip{display:inline-flex;align-items:center;gap:6px;min-height:33px;padding:5px 8px;font-size:11px;line-height:1.25;background:#eff4f1;color:#17323e;border:1px solid #e2ece7;border-radius:7px;max-width:100%;white-space:normal}
+.pf-nocturne .pf-tool-category .pf-brand-chip img{width:19px;height:19px;object-fit:contain;flex:none}
+.pf-nocturne .pf-tool-category .sys-tool-strip-list>.pf-brand-text{background:#182e40;color:#d4e5ee;border-color:#486176}
+.pf-nocturne .background-section{padding-top:clamp(20px,3vw,38px)}
+.pf-nocturne .nav-list{gap:clamp(8px,1.8vw,25px)}
+@media(max-width:900px){.pf-nocturne .pf-tool-groups{grid-template-columns:minmax(0,1fr)}.pf-nocturne .pf-tool-categories{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:580px){.pf-nocturne .pf-tool-categories{grid-template-columns:minmax(0,1fr);padding:11px;gap:10px}.pf-nocturne .pf-tool-group-heading{padding:12px}.pf-nocturne .pf-tool-category .sys-tool-strip-list>.pf-brand-chip{font-size:11px;padding:5px 7px}}

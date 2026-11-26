@@ -107,13 +107,15 @@ jobs:
                 if(await page.locator('body.pf-nocturne').count()!==1||!theme.hero.includes('radial-gradient')||theme.body!=='rgb(8, 14, 28)')errors.push('Dark gradient design missing '+JSON.stringify(theme));
                 if(await page.locator('.pf-card-summary').count()!==2)errors.push('Compact project summaries missing');
                 if(await page.locator('.contact-aside').count())errors.push('Redundant contact slogan remains');
-                if(await page.locator('.pf-tool-group').count()!==2)errors.push('Two categorized tool groups required');
-                else for(const toolGroup of await page.locator('.pf-tool-group').all()){
-                  await toolGroup.locator('summary').click();
-                  if(!(await toolGroup.evaluate(el=>el.open)))errors.push('Tool group failed to expand');
-                  await toolGroup.locator('summary').click();
-                  if(await toolGroup.evaluate(el=>el.open))errors.push('Tool group failed to close');
+                if(await page.locator('section.pf-tool-group').count()!==2)errors.push('Two always-visible tool groups required');
+                if(await page.locator('details.pf-tool-group, .pf-tool-group summary, .pf-tool-mark').count())errors.push('Tool list must not be collapsed or use letter icons');
+                const order=await page.evaluate(()=>['experience','background','education','work'].map(id=>document.getElementById(id).getBoundingClientRect().top));
+                if(order.some((v,i)=>i>0&&v<=order[i-1]))errors.push('Professional CV sections must precede portfolio');
+                for(const name of ['Trello','Jenkins','Microsoft Teams','Jira','Notion','GitHub','Asana']){
+                  const tool=page.locator('.pf-brand-chip[data-tool="'+name+'"]').first();
+                  if(!await tool.count()||!await tool.isVisible()||await tool.locator('img').count()!==1)errors.push('Missing visible brand icon '+name);
                 }
+                if(await page.locator('.pf-brand-chip img').count()<35)errors.push('Brand image inventory incomplete');
                 if(!(await page.locator('.rd-additional-card h4').allTextContents()).includes('HLP Model'))errors.push('Correct HLP model name missing');
                 if(await page.locator('.sys-tool-strip-list img').count()<7)errors.push('Background brand-logo strip missing');
                 if(await page.locator('link[href="portfolio-nocturne.css"]').count()!==1)errors.push('Nocturne stylesheet missing');
