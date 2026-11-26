@@ -74,6 +74,10 @@ jobs:
                 for(const id of ['career-os','finance-os','hlpm'])if(await addedCases.locator('a[href="'+id+suffix+'.html"]').count()!==1)errors.push('Missing localized case link '+id);
                 if(await page.locator('.sys-board-row').count()!==2)errors.push('Two project architecture maps missing');
                 if(await page.locator('.sys-board-row .sys-node').count()!==8)errors.push('Expected 8 connected architecture nodes');
+                const systems=page.locator('#systems');
+                if(await systems.count()!==1 || await systems.evaluate(el=>el.open))errors.push('Systems should be grouped and collapsed initially');
+                else await systems.locator(':scope > summary').click();
+                if(await systems.count()===1 && !(await systems.evaluate(el=>el.open)))errors.push('Systems disclosure failed to open');
                 const catalogs=page.locator('.sys-platform-catalog');
                 if(await catalogs.count()!==2)errors.push('Expected two expandable platform catalogs');
                 else {
@@ -89,7 +93,21 @@ jobs:
                   if(await klar.locator('.sys-platform').count()<12)errors.push('Klarwerk full tool stack incomplete');
                   await klar.locator('summary').click();
                 }
+                if(await systems.count()===1){await systems.locator(':scope > summary').click();if(await systems.evaluate(el=>el.open))errors.push('Systems disclosure failed to close');}
+                for(const group of ['.pf-earlier','.pf-approach','.pf-about']){
+                  const panel=page.locator(group);
+                  if(await panel.count()!==1){errors.push('Grouped disclosure missing '+group);continue}
+                  if(await panel.evaluate(el=>el.open))errors.push('Grouped disclosure open initially '+group);
+                  await panel.locator(':scope > summary').click();
+                  if(!(await panel.evaluate(el=>el.open)))errors.push('Grouped disclosure failed to open '+group);
+                  await panel.locator(':scope > summary').click();
+                  if(await panel.evaluate(el=>el.open))errors.push('Grouped disclosure failed to close '+group);
+                }
+                const theme=await page.evaluate(()=>({body:getComputedStyle(document.body).backgroundColor,hero:getComputedStyle(document.querySelector('.hero')).backgroundImage,main:getComputedStyle(document.querySelector('.work-section')).backgroundColor}));
+                if(await page.locator('body.pf-nocturne').count()!==1||!theme.hero.includes('radial-gradient')||theme.body!=='rgb(8, 14, 28)')errors.push('Dark gradient design missing '+JSON.stringify(theme));
+                if(await page.locator('.pf-card-summary').count()!==2)errors.push('Compact project summaries missing');
                 if(await page.locator('.sys-tool-strip-list img').count()<7)errors.push('Background brand-logo strip missing');
+                if(await page.locator('link[href="portfolio-nocturne.css"]').count()!==1)errors.push('Nocturne stylesheet missing');
                 if(await page.locator('link[href="systems-visuals.css"]').count()!==1)errors.push('Architecture CSS missing');
                 if(await page.locator('.chip-row img').count()<6)errors.push('Project icon badges missing');
                 const projectTitles=await page.locator('.sys-board-context h4').allTextContents();
