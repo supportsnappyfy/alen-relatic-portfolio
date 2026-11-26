@@ -26,3 +26,5 @@ Brand marks identify the named tools only; no affiliation is implied. Logos are 
 - mailchimp: https://github.com/gilbarbara/logos/blob/HEAD/logos/mailchimp-icon.svg (blob da6b53bb15d4e3e7c00303d5ef23e73cc43f0024)
 - replicate: https://github.com/simple-icons/simple-icons/blob/HEAD/icons/replicate.svg (blob 4a48bce8a7755b7deabdfa45eb2e54d3c1f29d9c)
 - runway: https://github.com/gilbarbara/logos/blob/HEAD/logos/runway-icon.svg (blob 26a32962921968904774ba1ca79ccb50f90375ce)
+- klaviyo: https://github.com/ln-dev7/logos-apps/blob/HEAD/logos/klaviyo.svg (blob 79c841ce77c95e02c6aeaa07976f26988b3ebf09)
+- metricool: https://github.com/cursor/plugins/blob/main/third_party/metricool/assets/logo.png
